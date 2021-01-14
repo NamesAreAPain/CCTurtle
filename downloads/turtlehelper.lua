@@ -78,3 +78,12 @@ function Turtle:digmoveTo(tgt)
         self:digmove(3)
     end
 end
+
+function Turtle:mineRectangle(ca,cb)
+    
+end
+
+
+
+
+
