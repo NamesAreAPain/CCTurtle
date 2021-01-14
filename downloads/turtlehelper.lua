@@ -16,6 +16,7 @@ function Turtle:new(direction)
 end
 
 function Turtle:update_pos()
+    print(self.loc)
     self.loc.x, self.loc.y, self.loc.z = gps.locate()
 end
 
