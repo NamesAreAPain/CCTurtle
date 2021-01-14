@@ -79,6 +79,3 @@ function Turtle:digmoveTo(tgt)
         Turtle:digmove(3)
     end
 end
-
-local testTurtle = Turtle:new(0)
-testTurtle:digmoveTo(coords(arg[1],arg[2],arg[3]))
