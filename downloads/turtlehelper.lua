@@ -16,7 +16,6 @@ function Turtle:new(direction)
 end
 
 function Turtle:update_pos()
-    print(self.loc)
     self.loc.x, self.loc.y, self.loc.z = gps.locate()
 end
 
@@ -52,7 +51,7 @@ function Turtle:digmoveUp()
    self:update_pos()
 end
 
-function Turtle:digmoveUp()
+function Turtle:digmoveDown()
    while not turtle.down() do
        turtle.digDown()
    end
