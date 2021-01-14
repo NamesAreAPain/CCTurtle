@@ -8,7 +8,7 @@ end
 
 Turtle = {}
 function Turtle:new(direction)
-    local t = setmetatable({},{_index = Turtle})
+    local t = setmetatable({},{__index = Turtle})
     t.dir = direction
     t.loc = coord(0,0,0)
     t.loc.x, t.loc.y, t.loc.z = gps.locate()
