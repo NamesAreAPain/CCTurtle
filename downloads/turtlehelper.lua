@@ -37,7 +37,7 @@ function Turtle:face(dir)
     end
 end
 
-function Turtle:digmove(direction)
+function Turtle:digmove(dir)
    self:face(dir)
    while not turtle.forward() do
        turtle.dig()
@@ -69,7 +69,7 @@ function Turtle:digmoveTo(tgt)
     while tgt.y > self.loc.y do
         self:digmoveUp()
     end
-    while tgt.y > self.loc.y do
+    while tgt.y < self.loc.y do
         self:digmoveDown()
     end
     while tgt.z > self.loc.z do
