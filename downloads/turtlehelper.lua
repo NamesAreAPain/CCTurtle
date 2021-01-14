@@ -6,6 +6,7 @@ function add(ca,cb)
     return {x = ca.x + cb.x, y = ca.y + cb.y, z = ca.z + cb.z}
 end
 
+Turtle = {}
 function Turtle:new(direction)
     local t = setmetatable({},{_index = Turtle})
     t.dir = direction
