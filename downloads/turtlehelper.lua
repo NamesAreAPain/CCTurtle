@@ -60,23 +60,22 @@ function Turtle:digmoveUp()
 end
 
 function Turtle:digmoveTo(tgt)
-    local tdir = 0
     while tgt.x > self.loc.x do
-        Turtle:digmove(0)
+        self:digmove(0)
     end
     while tgt.x < self.loc.x do
-        Turtle:digmove(2)
+        self:digmove(2)
     end
     while tgt.y > self.loc.y do
-        Turtle:digmoveUp()
+        self:digmoveUp()
     end
     while tgt.y > self.loc.y do
-        Turtle:digmoveDown()
+        self:digmoveDown()
     end
     while tgt.z > self.loc.z do
-        Turtle:digmove(1)
+        self:digmove(1)
     end
     while tgt.z < self.loc.z do
-        Turtle:digmove(3)
+        self:digmove(3)
     end
 end
