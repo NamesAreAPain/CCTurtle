@@ -8,6 +8,7 @@ end
 
 function mul(ca,cb)
     return {x = ca.x*cb.x, y = ca.y*cb.y, z = ca.z + cb.z}
+end
 
 Turtle = {}
 function Turtle:new(direction)
