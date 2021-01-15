@@ -98,9 +98,9 @@ function Turtle:mineCuboid(ca,cb)
    local i = 0
    for x = low.x,upp.x do
        if i % 2 == 0 then
-            digmoveTo(x,low.y,low.z)
+            self:digmoveTo(x,low.y,low.z)
        else
-            digmoveTo(x,low.y,upp.z)
+            self:digmoveTo(x,low.y,upp.z)
        end
        for y = low.y,upp.y do
             if i % 2 == 0 then 
