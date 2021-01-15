@@ -19,12 +19,32 @@ function min(a,b)
 end
 
 Turtle = {}
-function Turtle:new(direction)
+function Turtle:new()
     local t = setmetatable({},{__index = Turtle})
-    t.dir = direction
+    t.dir = 0
     t.loc = coord(0,0,0)
+    t:dirdance()
     t.loc.x, t.loc.y, t.loc.z = gps.locate()
     return t
+end
+
+function Turtle:dirdance()
+    local loc1 = coord(0,0,0)
+    loc1.x, loc1.y, loc1.z = gps.locate()
+    turtle.dig()
+    turtle.forward()
+    local loc2 = coord(0,0,0)
+    loc2.x, loc2.y, loc2.z = gps.locate()
+    if loc1.x > loc2.x then
+        self.dir = 0
+    elseif loc1.x < loc2.x then
+        self.dir = 2
+    elseif loc1.z > loc2.z then
+        self.dir = 1
+    elseif loc1.z < loc2.z then
+        self.dir = 3
+    end
+    turtle.back()
 end
 
 function Turtle:update_pos()
