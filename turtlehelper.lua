@@ -10,6 +10,14 @@ function mul(ca,cb)
     return {x = ca.x*cb.x, y = ca.y*cb.y, z = ca.z + cb.z}
 end
 
+function max(a,b)
+    if a > b then return a else return b end
+end
+
+function min(a,b)
+    if a < b then return a else return b end
+end
+
 Turtle = {}
 function Turtle:new(direction)
     local t = setmetatable({},{__index = Turtle})
