@@ -6,6 +6,9 @@ function add(ca,cb)
     return {x = ca.x + cb.x, y = ca.y + cb.y, z = ca.z + cb.z}
 end
 
+function mul(ca,cb)
+    return {x = ca.x*cb.x, y = ca.y*cb.y, z = ca.z + cb.z}
+
 Turtle = {}
 function Turtle:new(direction)
     local t = setmetatable({},{__index = Turtle})
@@ -79,8 +82,26 @@ function Turtle:digmoveTo(tgt)
     end
 end
 
-function Turtle:mineRectangle(ca,cb)
-    
+function Turtle:mineCuboid(ca,cb)
+   local upp = coord(max(ca.x,cb.x),max(ca.y,cb.y),max(ca.z,cb.z))
+   local low = coord(min(ca.x,cb.x),min(ca.y,cb.y),min(ca.z,cb.z))
+   self:digmoveTo(low)
+   local i = 0
+   for x = low.x,upp.x do
+       if i % 2 == 0 then
+            digmoveTo(x,low.y,low.z)
+       else
+            digmoveTo(x,low.y,upp.z)
+       end
+       for y = low.y,upp.y do
+            if i % 2 == 0 then 
+                self:digmoveTo(x,y,upp.z)
+            else
+                self:digmoveTo(x,y,low.z)
+            end
+            i = i + 1
+       end
+   end
 end
 
 
