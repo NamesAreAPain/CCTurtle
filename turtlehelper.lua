@@ -35,13 +35,13 @@ function Turtle:dirdance()
     turtle.forward()
     local loc2 = coord(0,0,0)
     loc2.x, loc2.y, loc2.z = gps.locate()
-    if loc1.x > loc2.x then
+    if loc2.x > loc1.x then
         self.dir = 0
-    elseif loc1.x < loc2.x then
+    elseif loc2.x < loc1.x then
         self.dir = 2
-    elseif loc1.z > loc2.z then
+    elseif loc2.z > loc1.z then
         self.dir = 1
-    elseif loc1.z < loc2.z then
+    elseif loc2.z < loc1.z then
         self.dir = 3
     end
     turtle.back()
