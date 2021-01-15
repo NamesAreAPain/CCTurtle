@@ -98,15 +98,15 @@ function Turtle:mineCuboid(ca,cb)
    local i = 0
    for x = low.x,upp.x do
        if i % 2 == 0 then
-            self:digmoveTo(x,low.y,low.z)
+            self:digmoveTo(coord(x,low.y,low.z))
        else
-            self:digmoveTo(x,low.y,upp.z)
+            self:digmoveTo(coord(x,low.y,upp.z))
        end
        for y = low.y,upp.y do
             if i % 2 == 0 then 
-                self:digmoveTo(x,y,upp.z)
+                self:digmoveTo(coord(x,y,upp.z))
             else
-                self:digmoveTo(x,y,low.z)
+                self:digmoveTo(coord(x,y,low.z))
             end
             i = i + 1
        end
