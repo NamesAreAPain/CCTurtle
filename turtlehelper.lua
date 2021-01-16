@@ -25,6 +25,9 @@ function Turtle:new()
     t.loc = coord(0,0,0)
     t:dirdance()
     t.coord_stack = Stack:new()
+    t.step_funcs = {}
+    table.insert(t.step_funcs,refuel)
+    table.insert(t.step_funcs,deposit)
     t.loc.x, t.loc.y, t.loc.z = gps.locate()
     return t
 end
@@ -53,6 +56,52 @@ function Turtle:start()
     while tgt ~= nil do
         tgt = self.coord_stack:pop()
         self:digmoveTo(tgt)
+    end
+end
+
+function Turtle:step()
+    for i,v in ipairs(self.step_funcs) do
+        v(self)        
+    end
+end
+
+function refuel(ttt)
+    if turtle.getFuelLevel() < 100 then
+        for i = 1,16 do
+            if turtle.getItemDetail(i,true).nbt == "2d39e538707a294bc5f91f47288cc603" then
+                turtle.select(i)
+                turtle.dig()
+                turtle.place()
+                turtle.suck()
+                for j = 1,16 do
+                    if turtle.getItemDetail(j).name == "minecraft:lava_bucket" then
+                        turtle.select(j)
+                        turtle.refuel()
+                        turtle.drop()
+                    end
+                end
+                turtle.dig()
+            end
+        end
+    end
+end
+
+function deposit(ttt)
+    if turtle.getItemCount(16) ~= 0 then
+        for i = 1,16 do
+            if turtle.getItemDetail(i,true).nbt == "391c6358c189111b0cf8d617f3855773" then
+                turtle.select(i)
+                turtle.dig()
+                turtle.place()
+            end
+        end
+        for i = 1,16 do
+            if turtle.getItemDetail(i).name ~= "enderstorage:ender_chest" then
+                turtle.select(i)
+                turtle.drop()
+            end
+        end
+        turtle.dig()
     end
 end
 
