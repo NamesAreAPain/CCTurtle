@@ -24,6 +24,7 @@ function Turtle:new()
     t.dir = 0
     t.loc = coord(0,0,0)
     t:dirdance()
+    t.coord_stack = Stack:new()
     t.loc.x, t.loc.y, t.loc.z = gps.locate()
     return t
 end
@@ -45,6 +46,14 @@ function Turtle:dirdance()
         self.dir = 3
     end
     turtle.back()
+end
+
+function Turtle:start()
+    local tgt = coord(0,0,0)
+    while tgt ~= nil do
+        tgt = self.coord_stack.pop()
+        self:digmoveTo(tgt)
+    end
 end
 
 function Turtle:update_pos()
@@ -114,26 +123,58 @@ end
 function Turtle:mineCuboid(ca,cb)
    local upp = coord(max(ca.x,cb.x),max(ca.y,cb.y),max(ca.z,cb.z))
    local low = coord(min(ca.x,cb.x),min(ca.y,cb.y),min(ca.z,cb.z))
-   self:digmoveTo(low)
+   local reverseStack = Stack:new()
+   reverseStack:push(low)
    local i = 0
    for x = low.x,upp.x do
        if i % 2 == 0 then
-            self:digmoveTo(coord(x,low.y,low.z))
+            reverseStack:push(coord(x,low.y,low.z))
        else
-            self:digmoveTo(coord(x,low.y,upp.z))
+            reverseStack:push(coord(x,low.y,upp.z))
        end
        for y = low.y,upp.y do
             if i % 2 == 0 then 
-                self:digmoveTo(coord(x,y,upp.z))
+                reverseStack:push(coord(x,y,upp.z))
             else
-                self:digmoveTo(coord(x,y,low.z))
+                reverseStack:push(coord(x,y,low.z))
             end
             i = i + 1
        end
    end
+   local j = coord(0,0,0)
+   while j~= nil do
+        j = reverseStack:pop()
+        self.coord_stack:push(j)
+   end
 end
 
+Queue = {}
+function Queue:new()
+    local t = setmetatable({},{__index = Queue})
+    t.arr = {}
+    return t
+end
 
+function Queue:push(x)
+   table.insert(self.arr,x)
+end
 
+function Queue:pop()
+    return table.remove(self.arr,1)
+end
 
+Stack = {}
+function Stack:new()
+    local t = setmetatable({},{__index = Stack})
+    t.arr = {}
+    return t
+end
+
+function Stack:push(x)
+    table.insert(self.arr,x,1)
+end
+
+function Stack:pop()
+    return table.remove(self.arr)
+end
 
