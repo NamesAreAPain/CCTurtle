@@ -67,14 +67,17 @@ end
 
 function refuel(ttt)
     if turtle.getFuelLevel() < 100 then
+        local slot = 0
         for i = 1,16 do
-            if turtle.getItemDetail(i,true).nbt == "2d39e538707a294bc5f91f47288cc603" then
+            slot = turtle.getItemDetail(i,true)
+            if slot ~= nil && slot.nbt == "2d39e538707a294bc5f91f47288cc603" then
                 turtle.select(i)
                 turtle.dig()
                 turtle.place()
                 turtle.suck()
                 for j = 1,16 do
-                    if turtle.getItemDetail(j).name == "minecraft:lava_bucket" then
+                    slot = turtle.getItemDetail(j) 
+                    if slot ~= nil && turtle.getItemDetail(j).name == "minecraft:lava_bucket" then
                         turtle.select(j)
                         turtle.refuel()
                         turtle.drop()
@@ -88,15 +91,18 @@ end
 
 function deposit(ttt)
     if turtle.getItemCount(16) ~= 0 then
+        local slot = 0
         for i = 1,16 do
-            if turtle.getItemDetail(i,true).nbt == "391c6358c189111b0cf8d617f3855773" then
+            slot = turtle.getItemDetail(i,true)
+            if slot ~= nil && slot.nbt == "391c6358c189111b0cf8d617f3855773" then
                 turtle.select(i)
                 turtle.dig()
                 turtle.place()
             end
         end
         for i = 1,16 do
-            if turtle.getItemDetail(i).name ~= "enderstorage:ender_chest" then
+            slot = turtle.getItemDetail(i)
+            if slot ~= nil && slot.name ~= "enderstorage:ender_chest" then
                 turtle.select(i)
                 turtle.drop()
             end
