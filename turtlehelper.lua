@@ -171,7 +171,7 @@ function Stack:new()
 end
 
 function Stack:push(x)
-    table.insert(self.arr,x,1)
+    table.insert(self.arr,1,x)
 end
 
 function Stack:pop()
