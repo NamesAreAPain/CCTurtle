@@ -51,7 +51,7 @@ end
 function Turtle:start()
     local tgt = coord(0,0,0)
     while tgt ~= nil do
-        tgt = self.coord_stack.pop()
+        tgt = self.coord_stack:pop()
         self:digmoveTo(tgt)
     end
 end
