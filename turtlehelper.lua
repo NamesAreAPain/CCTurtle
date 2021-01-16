@@ -83,6 +83,7 @@ function refuel(ttt)
                         turtle.drop()
                     end
                 end
+                turtle.select(1)
                 turtle.dig()
             end
         end
@@ -107,6 +108,7 @@ function deposit(ttt)
                 turtle.drop()
             end
         end
+        turtle.select(1)
         turtle.dig()
     end
 end
