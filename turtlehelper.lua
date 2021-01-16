@@ -127,25 +127,28 @@ function Turtle:face(dir)
 end
 
 function Turtle:digmove(dir)
-   self:face(dir)
-   while not turtle.forward() do
+    self:step()
+    self:face(dir)
+    while not turtle.forward() do
        turtle.dig()
-   end
-   self:update_pos()
+    end
+    self:update_pos()
 end
 
 function Turtle:digmoveUp()
-   while not turtle.up() do
+    self:step()
+    while not turtle.up() do
        turtle.digUp()
-   end
-   self:update_pos()
+    end
+    self:update_pos()
 end
 
 function Turtle:digmoveDown()
-   while not turtle.down() do
+    self:step()
+    while not turtle.down() do
        turtle.digDown()
-   end
-   self:update_pos()
+    end
+    self:update_pos()
 end
 
 function Turtle:digmoveTo(tgt)
