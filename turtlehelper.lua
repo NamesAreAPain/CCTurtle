@@ -70,7 +70,7 @@ end
 function Turtle:step()
     local interrupt = false
     for i,v in ipairs(self.step_funcs) do
-        interrupt = interrupt or v(self)
+        interrupt = v(self) or interrupt
     end
     return interrupt
 end
