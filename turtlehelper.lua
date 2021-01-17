@@ -56,7 +56,7 @@ function Turtle:dirdance()
 end
 
 function Turtle:enable_veinminer()
-    self.step_funcs.insert(veinminer)
+    table.insert(self.step_funcs,veinminer)
 end
 
 function Turtle:start()
