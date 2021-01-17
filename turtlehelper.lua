@@ -127,7 +127,6 @@ end
 
 function veinminer(ttt)
     local loc = coord(gps.locate())
-    print(loc)
     local block = 0 
     local data = 0
     local found_anything = false
@@ -157,7 +156,7 @@ function veinminer(ttt)
         found_anything = true
     end
     if found_anything then
-        ttt.coord_stack:push(loc)
+        ttt.coord_stack:push(loc,true)
         local temp = temp_queue:pop()
         while temp do
             ttt.coord_stack:push(temp)
@@ -200,50 +199,53 @@ function Turtle:face(dir)
     end
 end
 
-function Turtle:digmove(dir)
+function Turtle:digmove(dir,skip)
     self:face(dir)
     while not turtle.forward() do
        turtle.dig()
     end
     self:update_pos()
+    if skip then return false end
     return self:step()
 end
 
-function Turtle:digmoveUp()
+function Turtle:digmoveUp(skip)
     while not turtle.up() do
        turtle.digUp()
     end
     self:update_pos()
+    if skip then return false end
     return self:step()
 end
 
-function Turtle:digmoveDown()
+function Turtle:digmoveDown(skip)
     while not turtle.down() do
        turtle.digDown()
     end
     self:update_pos()
+    if skip then return false end
     return self:step()
 end
 
-function Turtle:digmoveTo(tgt)
+function Turtle:digmoveTo(tgt,skip)
     if tgt == nil then return false end
     while tgt.x > self.loc.x do
-        if self:digmove(0) then return true end
+        if self:digmove(0,skip) then return true end
     end
     while tgt.x < self.loc.x do
-        if self:digmove(2) then return true end
+        if self:digmove(2,skip) then return true end
     end
     while tgt.y > self.loc.y do
-        if self:digmoveUp() then return true end
+        if self:digmoveUp(skip) then return true end
     end
     while tgt.y < self.loc.y do
-        if self:digmoveDown() then return true end
+        if self:digmoveDown(skip) then return true end
     end
     while tgt.z > self.loc.z do
-        if self:digmove(1) then return true end
+        if self:digmove(1,skip) then return true end
     end
     while tgt.z < self.loc.z do
-        if self:digmove(3) then return true end
+        if self:digmove(3,skip) then return true end
     end
     return false
 end
