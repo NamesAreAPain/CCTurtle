@@ -6,6 +6,10 @@ function add(ca,cb)
     return {x = ca.x + cb.x, y = ca.y + cb.y, z = ca.z + cb.z}
 end
 
+function translate(coord,x,y,z)
+    return {x = coord.x + x, y = coord.y + y ,z = coord.z + z}
+end
+
 function mul(ca,cb)
     return {x = ca.x*cb.x, y = ca.y*cb.y, z = ca.z + cb.z}
 end
@@ -51,6 +55,10 @@ function Turtle:dirdance()
     turtle.back()
 end
 
+function Turtle:enable_veinminer()
+    self.step_funcs.insert(veinminer)
+end
+
 function Turtle:start()
     local tgt = coord(0,0,0)
     while tgt ~= nil do
@@ -60,9 +68,11 @@ function Turtle:start()
 end
 
 function Turtle:step()
+    local interrupt = true
     for i,v in ipairs(self.step_funcs) do
-        v(self)        
+        interrupt = interrupt or v(self)
     end
+    return interrupt
 end
 
 function refuel(ttt)
@@ -88,6 +98,7 @@ function refuel(ttt)
             end
         end
     end
+    return false
 end
 
 function deposit(ttt)
@@ -110,6 +121,52 @@ function deposit(ttt)
         end
         turtle.select(1)
         turtle.dig()
+    end
+    return false
+end
+
+function veinminer(ttt)
+    loc = coord(gps.locate())
+    ttt:turnLeft()
+    local block = 0 
+    local data = 0
+    local found_anything = false
+    ttt:turnLeft()
+    block, data  = turtle.inspect()
+    if block and string.find(data.name,"ore") then
+        ttt.coord_stack:push(ttt:coord_facing())
+        found_anything = true
+    end
+    ttt:turnRight()
+    ttt:turnRight()
+    block, data  = turtle.inspect()
+    if block and string.find(data.name,"ore") then
+        ttt.coord_stack:push(ttt:coord_facing())
+        found_anything = true
+    end
+    ttt:turnLeft()
+    block, data  = turtle.inspectUp()
+    if block and string.find(data.name,"ore") then
+        ttt.coord_stack:push(translate(self.loc,0,1,0))
+        found_anything = true
+    end
+    block, data  = turtle.inspectDown()
+    if block and string.find(data.name,"ore") then
+        ttt.coord_stack:push(translate(self.loc,0,-1,0))
+        found_anything = true
+    end
+    return found_anything
+end
+
+function Turtle:coord_facing()
+    if self.dir == 0 then
+        return translate(self.loc, 1,0,0)
+    elseif self.dir == 1 then
+        return translate(self.loc,0,0,1)
+    elseif self.dir == 2 then
+        return translate(self.loc,-1,0,0)
+    elseif self.dir == 3 then
+        return translate(self.loc,0,0,-1)
     end
 end
 
@@ -135,49 +192,50 @@ function Turtle:face(dir)
 end
 
 function Turtle:digmove(dir)
-    self:step()
     self:face(dir)
     while not turtle.forward() do
        turtle.dig()
     end
     self:update_pos()
+    return self:step()
 end
 
 function Turtle:digmoveUp()
-    self:step()
     while not turtle.up() do
        turtle.digUp()
     end
     self:update_pos()
+    return self:step()
 end
 
 function Turtle:digmoveDown()
-    self:step()
     while not turtle.down() do
        turtle.digDown()
     end
     self:update_pos()
+    return self:step()
 end
 
 function Turtle:digmoveTo(tgt)
     while tgt.x > self.loc.x do
-        self:digmove(0)
+        if self:digmove(0) then return true end
     end
     while tgt.x < self.loc.x do
-        self:digmove(2)
+        if self:digmove(2) then return true end
     end
     while tgt.y > self.loc.y do
-        self:digmoveUp()
+        if self:digmoveUp() then return true end
     end
     while tgt.y < self.loc.y do
-        self:digmoveDown()
+        if self:digmoveDown() then return true end
     end
     while tgt.z > self.loc.z do
-        self:digmove(1)
+        if self:digmove(1) then return true end
     end
     while tgt.z < self.loc.z do
-        self:digmove(3)
+        if self:digmove(3) then return true end
     end
+    return false
 end
 
 function Turtle:mineCuboid(ca,cb)
