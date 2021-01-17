@@ -127,7 +127,7 @@ end
 
 function veinminer(ttt)
     loc = coord(gps.locate())
-    ttt:turnLeft()
+    print(loc)
     local block = 0 
     local data = 0
     local found_anything = false
@@ -164,7 +164,6 @@ function veinminer(ttt)
             temp = temp_queue:pop()
         end
     end
-    print(found_anything)
     return found_anything
 end
 
