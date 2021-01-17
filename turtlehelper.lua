@@ -60,11 +60,11 @@ function Turtle:enable_veinminer()
 end
 
 function Turtle:start()
-    local tgt = coord(0,0,0)
-    while tgt ~= nil do
-        tgt = self.coord_stack:pop()
+    local tgt = nil
+    repeat
         self:digmoveTo(tgt)
-    end
+        tgt= self.coord_stack:pop()
+    until tgt == nil
 end
 
 function Turtle:step()
@@ -227,6 +227,7 @@ function Turtle:digmoveDown()
 end
 
 function Turtle:digmoveTo(tgt)
+    if tgt == nil then return false end
     while tgt.x > self.loc.x do
         if self:digmove(0) then return true end
     end
