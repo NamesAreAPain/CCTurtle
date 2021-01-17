@@ -285,6 +285,7 @@ function Queue:new()
 end
 
 function Queue:push(x)
+    if x == nil then return end
    table.insert(self.arr,x)
 end
 
@@ -300,6 +301,7 @@ function Stack:new()
 end
 
 function Stack:push(x)
+    if x == nil then return end
     table.insert(self.arr,1,x)
 end
 
