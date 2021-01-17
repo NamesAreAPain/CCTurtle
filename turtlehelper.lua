@@ -164,6 +164,7 @@ function veinminer(ttt)
             temp = temp_queue.pop()
         end
     end
+    print(found_anything)
     return found_anything
 end
 
