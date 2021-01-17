@@ -158,10 +158,10 @@ function veinminer(ttt)
     end
     if found_anything then
         ttt.coord_stack:push(loc)
-        local temp = temp_queue.pop()
+        local temp = temp_queue:pop()
         while temp do
             ttt.coord_stack:push(temp)
-            temp = temp_queue.pop()
+            temp = temp_queue:pop()
         end
     end
     print(found_anything)
