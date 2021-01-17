@@ -131,29 +131,38 @@ function veinminer(ttt)
     local block = 0 
     local data = 0
     local found_anything = false
+    local temp_queue = Queue:new()
     ttt:turnLeft()
     block, data  = turtle.inspect()
     if block and string.find(data.name,"ore") then
-        ttt.coord_stack:push(ttt:coord_facing())
+        temp_queue:push(ttt:coord_facing())
         found_anything = true
     end
     ttt:turnRight()
     ttt:turnRight()
     block, data  = turtle.inspect()
     if block and string.find(data.name,"ore") then
-        ttt.coord_stack:push(ttt:coord_facing())
+        temp_queue:push(ttt:coord_facing())
         found_anything = true
     end
     ttt:turnLeft()
     block, data  = turtle.inspectUp()
     if block and string.find(data.name,"ore") then
-        ttt.coord_stack:push(translate(self.loc,0,1,0))
+        temp_queue:push(translate(self.loc,0,1,0))
         found_anything = true
     end
     block, data  = turtle.inspectDown()
     if block and string.find(data.name,"ore") then
-        ttt.coord_stack:push(translate(self.loc,0,-1,0))
+        temp_queue:push(translate(self.loc,0,-1,0))
         found_anything = true
+    end
+    if found_anything then
+        ttt.coord_stack:push(loc)
+        local temp = temp_queue.pop()
+        while temp do
+            ttt.coord_stack:push(temp)
+            temp = temp_queue.pop()
+        end
     end
     return found_anything
 end
