@@ -68,7 +68,7 @@ function Turtle:start()
 end
 
 function Turtle:step()
-    local interrupt = true
+    local interrupt = false
     for i,v in ipairs(self.step_funcs) do
         interrupt = interrupt or v(self)
     end
