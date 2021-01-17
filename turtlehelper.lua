@@ -126,7 +126,7 @@ function deposit(ttt)
 end
 
 function veinminer(ttt)
-    loc = coord(gps.locate())
+    local loc = coord(gps.locate())
     print(loc)
     local block = 0 
     local data = 0
