@@ -148,12 +148,12 @@ function veinminer(ttt)
     ttt:turnLeft()
     block, data  = turtle.inspectUp()
     if block and string.find(data.name,"ore") then
-        temp_queue:push(translate(self.loc,0,1,0))
+        temp_queue:push(translate(ttt.loc,0,1,0))
         found_anything = true
     end
     block, data  = turtle.inspectDown()
     if block and string.find(data.name,"ore") then
-        temp_queue:push(translate(self.loc,0,-1,0))
+        temp_queue:push(translate(ttt.loc,0,-1,0))
         found_anything = true
     end
     if found_anything then
