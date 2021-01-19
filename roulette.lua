@@ -108,6 +108,60 @@ function pad(str,n)
     return out
 end
 
+function boardGrid()
+    local board = {}
+    local roulette_order = rouletteOrder()
+    local num = 1
+    for x = 10,76,6 do
+        for y = 13,5,-4 do
+            board[i] = table.pack(table.unpack(roulette_order[searchTable(roulette_order,i.."")]),x,y)
+            i = i + 1
+        end
+    end
+    board[i] = table.pack(table.unpack(roulette_order[searchTable(roulette_order,"00")]),4,7)
+    i = i + 1
+    board[i] = table.pack(table.unpack(roulette_order[searchTable(roulette_order,"0")]),4,11)
+    return board
+end
+
+function drawBoard(monitor,grid)
+    monitor.setTextScale(0.5)
+    monitor.setCursorBlink(false)
+    monitor.setCursorPos(1,1)
+    monitor.setBackgroundColor(colors.green)
+    monitor.clear()
+    for i,x in ipairs(grid) do
+        drawBoardSquare(monitor,table.unpack(x))
+    end
+    
+end
+
+function drawBoardSquare(monitor,num,oddity,color,x,y)
+    monitor.setCursorPos(x-3,y-2)
+    monitor.blit(pad(" ",7),pad(colors.toBlit(colors.brown),7),pad(colors.toBlit(colors.brown),7))
+    monitor.setCursorPos(x-3,y-1)
+    monitor.blit("       ","c"..pad(colors.toBlit(color),5).."c","c"..pad(colors.toBlit(color),5).."c")
+    monitor.setCursorPos(x-3,y)
+    if string.len(num) == 2 then
+        monitor.blit("  "..string.sub(num,1,1).." "..string.sub(num,2,2).."  ","c"..colors.toBlit(color)..colors.toBlit(colors.white)..colors.toBlit(color)..colors.toBlit(colors.white)..colors.toBlit(color).."c","c"..pad(colors.toBlit(color),5).."c")
+    else
+        monitor.blit("   "..num.."   ","c"..pad(colors.toBlit(color),2)..colors.toBlit(colors.white)..pad(colors.toBlit(color),2).."c","c"..pad(colors.toBlit(color),5).."c")
+    end
+    monitor.setCursorPos(x-3,y+1)
+    monitor.blit("       ","c"..pad(colors.toBlit(color),5).."c","c"..pad(colors.toBlit(color),5).."c")
+    monitor.setCursorPos(x-3,y+2)
+    monitor.blit(pad(" ",7),pad(colors.toBlit(colors.brown),7),pad(colors.toBlit(colors.brown),7))
+end
+
+function searchTable(t,val)
+    for i,x in ipairs(t) do
+        if table.unpack(x) == val then
+            return i
+        end
+    end
+    return nil
+end
+
 
 
 
