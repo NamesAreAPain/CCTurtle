@@ -111,7 +111,7 @@ end
 function boardGrid()
     local board = {}
     local roulette_order = rouletteOrder()
-    local num = 1
+    local i = 1
     for x = 10,76,6 do
         for y = 13,5,-4 do
             board[i] = table.pack(table.unpack(roulette_order[searchTable(roulette_order,i.."")]),x,y)
@@ -124,19 +124,18 @@ function boardGrid()
     return board
 end
 
-function drawBoard(monitor,grid)
+function drawBoard(monitor,numgrid)
     monitor.setTextScale(0.5)
     monitor.setCursorBlink(false)
     monitor.setCursorPos(1,1)
     monitor.setBackgroundColor(colors.green)
     monitor.clear()
-    for i,x in ipairs(grid) do
-        drawBoardSquare(monitor,table.unpack(x))
+    for i,x in ipairs(numgrid) do
+        drawBoardNumSquare(monitor,table.unpack(x))
     end
-    
 end
 
-function drawBoardSquare(monitor,num,oddity,color,x,y)
+function drawBoardNumSquare(monitor,num,oddity,color,x,y)
     monitor.setCursorPos(x-3,y-2)
     monitor.blit(pad(" ",7),pad(colors.toBlit(colors.brown),7),pad(colors.toBlit(colors.brown),7))
     monitor.setCursorPos(x-3,y-1)
