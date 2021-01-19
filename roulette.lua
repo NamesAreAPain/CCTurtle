@@ -90,7 +90,7 @@ function drawSquare(monitor,x,y,num,oddity,color)
    monitor.blit("       ","c"..pad(colors.toBlit(color),5).."c","c"..pad(colors.toBlit(color),5).."c")
    monitor.setCursorPos(x-3,y)
    if string.len(num) == 2 then
-        monitor.blit("  "..string.sub(num,1,1).." "..string.sub(2,2).."  ","c"..colors.toBlit(color)..colors.toBlit(colors.white)..colors.toBlit(color)..colors.toBlit(colors.white)..colors.toBlit(color).."c","c"..pad(colors.toBlit(color),5).."c")
+       monitor.blit("  "..string.sub(num,1,1).." "..string.sub(num,2,2).."  ","c"..colors.toBlit(color)..colors.toBlit(colors.white)..colors.toBlit(color)..colors.toBlit(colors.white)..colors.toBlit(color).."c","c"..pad(colors.toBlit(color),5).."c")
    else
         monitor.blit("   "..num.."   ","c"..pad(colors.toBlit(color),2)..colors.toBlit(colors.white)..pad(colors.toBlit(color),2).."c","c"..pad(colors.toBlit(color),5).."c")
    end
