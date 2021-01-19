@@ -56,7 +56,7 @@ function wheelGrid()
     local grid = {}
     local i = 1
     for y = 9,50,7 do
-        if y == 16 or y == 43 then
+        if y == 16 or y == 37 then
             for x = 19,61,7 do
                 grid[i] = table.pack(x,y,table.unpack(roulette_order[i]))
                 i = i + 1
