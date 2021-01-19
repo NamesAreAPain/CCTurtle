@@ -148,7 +148,7 @@ end
 
 function drawTwelves(monitor,name,color,x,y)
     monitor.setCursorPos(x,y)
-    monitor.blit(pad(" ",25),pad(colors.toBlit(colors.brown),25),pad(colors.toBlit(colors.brown,25)))
+    monitor.blit(pad(" ",25),pad(colors.toBlit(colors.brown),25),pad(colors.toBlit(colors.brown),25))
     monitor.setCursorPos(x,y+1)
     monitor.blit(pad(" ",25),colors.toBlit(colors.brown)..pad(colors.toBlit(color),23)..colors.toBlit(colors.brown),colors.toBlit(colors.brown)..pad(colors.toBlit(color),23)..colors.toBlit(colors.brown))
     monitor.setCursorPos(x,y+2)
@@ -156,12 +156,12 @@ function drawTwelves(monitor,name,color,x,y)
     monitor.setCursorPos(x,y+3)
     monitor.blit(pad(" ",25),colors.toBlit(colors.brown)..pad(colors.toBlit(color),23)..colors.toBlit(colors.brown),colors.toBlit(colors.brown)..pad(colors.toBlit(color),23)..colors.toBlit(colors.brown))
     monitor.setCursorPos(x,y+4)
-    monitor.blit(pad(" ",25),pad(colors.toBlit(colors.brown),25),pad(colors.toBlit(colors.brown,25)))
+    monitor.blit(pad(" ",25),pad(colors.toBlit(colors.brown),25),pad(colors.toBlit(colors.brown),25))
 end
 
 function drawDoubles(monitor,name,color,x,y)
     monitor.setCursorPos(x,y)
-    monitor.blit(pad(" ",13),pad(colors.toBlit(colors.brown),13),pad(colors.toBlit(colors.brown,13)))
+    monitor.blit(pad(" ",13),pad(colors.toBlit(colors.brown),13),pad(colors.toBlit(colors.brown),13))
     monitor.setCursorPos(x,y+1)
     monitor.blit(pad(" ",13),colors.toBlit(colors.brown)..pad(colors.toBlit(color),11)..colors.toBlit(colors.brown),colors.toBlit(colors.brown)..pad(colors.toBlit(color),11)..colors.toBlit(colors.brown))
     monitor.setCursorPos(x,y+2)
@@ -169,7 +169,7 @@ function drawDoubles(monitor,name,color,x,y)
     monitor.setCursorPos(x,y+3)
     monitor.blit(pad(" ",13),colors.toBlit(colors.brown)..pad(colors.toBlit(color),11)..colors.toBlit(colors.brown),colors.toBlit(colors.brown)..pad(colors.toBlit(color),11)..colors.toBlit(colors.brown))
     monitor.setCursorPos(x,y+4)
-    monitor.blit(pad(" ",13),pad(colors.toBlit(colors.brown),13),pad(colors.toBlit(colors.brown,13)))
+    monitor.blit(pad(" ",13),pad(colors.toBlit(colors.brown),13),pad(colors.toBlit(colors.brown),13))
     
 end
 
