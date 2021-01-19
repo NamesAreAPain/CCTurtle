@@ -124,6 +124,55 @@ function boardGrid()
     return board
 end
 
+function drawOutsideBoard(monitor)
+    local twelves = {
+        table.pack("1st 12",colors.green,7,15),
+        table.pack("2nd 12",colors.green,31,15),
+        table.pack("3rd 12",colors.green,55,15),
+    }
+    local doubles = {
+        table.pack(" 1 to 18",colors.green,7,19),
+        table.pack("  EVEN  ",colors.green,19,19),
+        table.pack("  REDS  ",colors.red,31,19),
+        table.pack(" BLACKS ",colors.black,43,19),
+        table.pack("  ODDS  ",colors.green,55,19),
+        table.pack("19 to 36",colors.green,67,19)
+    }
+    for i,x in ipairs(twelves) do
+        drawTwelves(table.unpack(x))
+    end
+    for i,x in ipairs(doubles) do
+        drawDoubles(table.unpack(x))
+    end
+end
+
+function drawTwelves(monitor,name,color,x,y)
+    monitor.setCursorPos(x,y)
+    monitor.blit(pad(" ",25),pad(colors.toBlit(colors.brown),25),pad(colors.toBlit(colors.brown,25)))
+    monitor.setCursorPos(x,y+1)
+    monitor.blit(pad(" ",25),colors.toBlit(colors.brown)..pad(colors.toBlit(color),23)..colors.toBlit(colors.brown)),colors.toBlit(colors.brown)..pad(colors.toBlit(color),23)..colors.toBlit(colors.brown)
+    monitor.setCursorPos(x,y+2)
+    monitor.blit(pad(" ",9)..name..pad(" ",8),pad(colors.toBlit(colors.white),25),colors.toBlit(colors.brown)..pad(colors.toBlit(colors),23)..colors.toBlit(colors.brown))
+    monitor.setCursorPos(x,y+3)
+    monitor.blit(pad(" ",25),colors.toBlit(colors.brown)..pad(colors.toBlit(color),23)..colors.toBlit(colors.brown)),colors.toBlit(colors.brown)..pad(colors.toBlit(color),23)..colors.toBlit(colors.brown)
+    monitor.setCursorPos(x,y+4)
+    monitor.blit(pad(" ",25),pad(colors.toBlit(colors.brown),25),pad(colors.toBlit(colors.brown,25)))
+end
+
+function drawDoubles(monitor,name,color,x,y)
+    monitor.setCursorPos(x,y)
+    monitor.blit(pad(" ",13),pad(colors.toBlit(colors.brown),13),pad(colors.toBlit(colors.brown,13)))
+    monitor.setCursorPos(x,y+1)
+    monitor.blit(pad(" ",13),colors.toBlit(colors.brown)..pad(colors.toBlit(color),11)..colors.toBlit(colors.brown)),colors.toBlit(colors.brown)..pad(colors.toBlit(color),11)..colors.toBlit(colors.brown)
+    monitor.setCursorPos(x,y+2)
+    monitor.blit(pad(" ",3)..name..pad(" ",2),pad(colors.toBlit(colors.white),13),colors.toBlit(colors.brown)..pad(colors.toBlit(colors),11)..colors.toBlit(colors.brown))
+    monitor.setCursorPos(x,y+3)
+    monitor.blit(pad(" ",13),colors.toBlit(colors.brown)..pad(colors.toBlit(color),11)..colors.toBlit(colors.brown)),colors.toBlit(colors.brown)..pad(colors.toBlit(color),11)..colors.toBlit(colors.brown)
+    monitor.setCursorPos(x,y+4)
+    monitor.blit(pad(" ",13),pad(colors.toBlit(colors.brown),13),pad(colors.toBlit(colors.brown,13)))
+    
+end
+
 function drawBoard(monitor,numgrid)
     monitor.setTextScale(0.5)
     monitor.setCursorBlink(false)
