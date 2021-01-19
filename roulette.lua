@@ -139,10 +139,10 @@ function drawOutsideBoard(monitor)
         table.pack("19 to 36",colors.green,67,19)
     }
     for i,x in ipairs(twelves) do
-        drawTwelves(table.unpack(x))
+        drawTwelves(monitor,table.unpack(x))
     end
     for i,x in ipairs(doubles) do
-        drawDoubles(table.unpack(x))
+        drawDoubles(monitor,table.unpack(x))
     end
 end
 
