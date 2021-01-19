@@ -7,7 +7,7 @@ function drawCircle(cX,cY,r,color)
     end
 end
 
-function roueletteOrder()
+function rouletteOrder()
     roulette_order = {
         table.pack("19",1,colors.red),
         table.pack("31",1,colors.black),
