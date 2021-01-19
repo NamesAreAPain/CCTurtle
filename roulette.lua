@@ -8,7 +8,7 @@ function drawCircle(cX,cY,r,color)
 end
 
 function rouletteOrder()
-    roulette_order = {
+    local roulette_order = {
         table.pack("19",1,colors.red),
         table.pack("31",1,colors.black),
         table.pack("18",2,colors.red),
@@ -56,7 +56,7 @@ function rouletteGrid()
     print(roulette_order)
     local grid = {}
     local i = 1
-    for y = 9,51,7 do
+    for y = 9,43,7 do
         if y == 16 or y == 44 then
             for x = 19,61,7 do
                 grid[i] = table.pack(x,y,table.unpack(roulette_order[i]))
@@ -69,6 +69,7 @@ function rouletteGrid()
             end
         end
     end
+    return grid
 end
 function drawGrid(monitor,grid)
     monitor.setTextScale(0.5)
@@ -105,5 +106,6 @@ function pad(str,n)
     for i=1,n do
         out = out..str
     end
+    return out
 end
 
