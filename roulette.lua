@@ -52,6 +52,7 @@ function roueletteOrder()
 end
 
 function rouletteGrid()
+    local roulette_order = rouletteOrder()
     local grid = {}
     local i = 1
     for y = 9,51,7 do
