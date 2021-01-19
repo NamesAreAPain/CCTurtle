@@ -114,13 +114,13 @@ function boardGrid()
     local i = 1
     for x = 10,76,6 do
         for y = 13,5,-4 do
-            board[i] = table.pack(table.unpack(roulette_order[searchTable(roulette_order,i.."")]),x,y)
+            board[i] = table.pack(x,y,table.unpack(roulette_order[searchTable(roulette_order,i.."")]))
             i = i + 1
         end
     end
-    board[i] = table.pack(table.unpack(roulette_order[searchTable(roulette_order,"00")]),4,7)
+    board[i] = table.pack(4,7,table.unpack(roulette_order[searchTable(roulette_order,"00")]))
     i = i + 1
-    board[i] = table.pack(table.unpack(roulette_order[searchTable(roulette_order,"0")]),4,11)
+    board[i] = table.pack(4,11,table.unpack(roulette_order[searchTable(roulette_order,"0")]))
     return board
 end
 
@@ -135,7 +135,7 @@ function drawBoard(monitor,numgrid)
     end
 end
 
-function drawBoardNumSquare(monitor,num,oddity,color,x,y)
+function drawBoardNumSquare(monitor,x,y,num,oddity,color)
     monitor.setCursorPos(x-3,y-2)
     monitor.blit(pad(" ",7),pad(colors.toBlit(colors.brown),7),pad(colors.toBlit(colors.brown),7))
     monitor.setCursorPos(x-3,y-1)
