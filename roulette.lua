@@ -51,13 +51,12 @@ function rouletteOrder()
     return roulette_order
 end
 
-function rouletteGrid()
+function wheelGrid()
     local roulette_order = rouletteOrder()
-    print(roulette_order)
     local grid = {}
     local i = 1
-    for y = 9,43,7 do
-        if y == 16 or y == 44 then
+    for y = 9,50,7 do
+        if y == 16 or y == 43 then
             for x = 19,61,7 do
                 grid[i] = table.pack(x,y,table.unpack(roulette_order[i]))
                 i = i + 1
@@ -71,7 +70,7 @@ function rouletteGrid()
     end
     return grid
 end
-function drawGrid(monitor,grid)
+function drawWheel(monitor,grid)
     monitor.setTextScale(0.5)
     monitor.setCursorBlink(false)
     monitor.setCursorPos(1,1)
@@ -108,4 +107,7 @@ function pad(str,n)
     end
     return out
 end
+
+
+
 
