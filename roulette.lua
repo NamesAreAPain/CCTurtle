@@ -168,7 +168,7 @@ function drawBorder(width,height,monitor,color,x,y)
         monitor.setCursorPos(x+(width-1),y+i)
         monitor.blit(" ",colors.toBlit(color),colors.toBlit(color))
     end
-    monitor.setCursor(x,(y+height-1))
+    monitor.setCursorPos(x,(y+height-1))
     monitor.blit(pad(" ",width),pad(colors.toBlit(color),width),pad(colors.toBlit(color),width))
 end
 function drawTwelves(monitor,name,color,x,y)
