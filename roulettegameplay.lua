@@ -10,7 +10,37 @@ function spin(monitor)
        sleep(0.1)
        i = (i%38)+1
     end
-    
+    for i = 1,math.random(50) do
+       spin_step(monitor,i,wheel_grid)
+       sleep(0.1)
+       i = (i%38)+1
+    end
+    for i = 1,50 do
+       spin_step(monitor,i,wheel_grid)
+       sleep(0.15)
+       i = (i%38)+1
+    end
+    for i = 1,math.random(25) do
+       spin_step(monitor,i,wheel_grid)
+       sleep(0.15)
+       i = (i%38)+1
+    end
+    for i = 1,25 do
+       spin_step(monitor,i,wheel_grid)
+       sleep(0.2)
+       i = (i%38)+1
+    end
+    for i = 1,math.random(10) do
+       spin_step(monitor,i,wheel_grid)
+       sleep(0.2)
+       i = (i%38)+1
+    end
+    for i = 1,math.random(5) do
+       spin_step(monitor,i,wheel_grid)
+       sleep(0.3)
+       i = (i%38)+1
+    end
+    print(i)
 end
 
 function spin_step(monitor,i,grid)
