@@ -25,7 +25,7 @@ function spin(monitor)
        i = (i%38)+1
     end
     spin_finish(monitor,i,wheel_grid)
-    local x,y,num = wheel_grid[i]
+    local x,y,num,oddity,color = wheel_grid[i]
     return num
 end
 
@@ -42,3 +42,9 @@ function spin_finish(monitor,i,grid)
         highlightSquare(monitor, colors.white,table.unpack(grid[(i)%38 + 1]))
     end
 end
+
+function waitForBets()
+    local timeout = os.startTimer(1)
+end
+
+
