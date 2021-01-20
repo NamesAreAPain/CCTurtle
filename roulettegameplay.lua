@@ -5,37 +5,37 @@ function spin(monitor)
     local win = math.random(38)
     local i = 1
     local wheel_grid = wheelGrid()
-    for i = 1,100 do
+    for j = 1,100 do
        spin_step(monitor,i,wheel_grid)
        sleep(0.1)
        i = (i%38)+1
     end
-    for i = 1,math.random(50) do
+    for j = 1,math.random(50) do
        spin_step(monitor,i,wheel_grid)
        sleep(0.1)
        i = (i%38)+1
     end
-    for i = 1,50 do
+    for j = 1,50 do
        spin_step(monitor,i,wheel_grid)
        sleep(0.15)
        i = (i%38)+1
     end
-    for i = 1,math.random(25) do
+    for j = 1,math.random(25) do
        spin_step(monitor,i,wheel_grid)
        sleep(0.15)
        i = (i%38)+1
     end
-    for i = 1,25 do
+    for j = 1,25 do
        spin_step(monitor,i,wheel_grid)
        sleep(0.2)
        i = (i%38)+1
     end
-    for i = 1,math.random(10) do
+    for j = 1,math.random(10) do
        spin_step(monitor,i,wheel_grid)
        sleep(0.2)
        i = (i%38)+1
     end
-    for i = 1,math.random(5) do
+    for j = 1,math.random(5) do
        spin_step(monitor,i,wheel_grid)
        sleep(0.3)
        i = (i%38)+1
