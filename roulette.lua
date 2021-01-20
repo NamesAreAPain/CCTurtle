@@ -97,9 +97,9 @@ function boardGrid()
             i = i + 1
         end
     end
-    board[i] = table.pack(2,4,table.unpack(roulette_order[searchTable(roulette_order,"00")]))
+    board[i] = table.pack(1,5,table.unpack(roulette_order[searchTable(roulette_order,"00")]))
     i = i + 1
-    board[i] = table.pack(2,8,table.unpack(roulette_order[searchTable(roulette_order,"0")]))
+    board[i] = table.pack(1,9,table.unpack(roulette_order[searchTable(roulette_order,"0")]))
     local twelves = {
         table.pack("1st  12",colors.green,7,15),
         table.pack("2nd  12",colors.green,31,15),
