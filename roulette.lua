@@ -126,9 +126,9 @@ end
 
 function drawOutsideBoard(monitor)
     local twelves = {
-        table.pack("1st 12",colors.green,7,15),
-        table.pack("2nd 12",colors.green,31,15),
-        table.pack("3rd 12",colors.green,55,15),
+        table.pack("1st  12",colors.green,7,15),
+        table.pack("2nd  12",colors.green,31,15),
+        table.pack("3rd  12",colors.green,55,15),
     }
     local doubles = {
         table.pack(" 1 to 18",colors.green,7,19),
@@ -146,31 +146,37 @@ function drawOutsideBoard(monitor)
     end
 end
 
-function drawTwelves(monitor,name,color,x,y)
+function drawRectangle(width,height,outer_color,monitor,text,inner_color,x,y)
+    local tlen = string.length(text)
+    local padding = (width-2-tlen)/2
+    for i = 1,(height-2) do
+        monitor.setCursorPos(x+1,y+i)
+        if i == (height-1)/2 then
+           monitor.blit(pad(" ",padding)..text..pad(" ",padding),pad(colors.toBlit(colors.white),width-2),pad(colors.toBlit(inner_color),width-2))
+        else
+            monitor.blit(pad(" ",width-2),pad(colors.toBlit(inner_color),width-2),pad(colors.toBlit(inner_color),width-2))
+        end
+    end
+    drawBorder(width,height,monitor,outer_color,x,y)
+end
+function drawBorder(width,height,monitor,color,x,y)
     monitor.setCursorPos(x,y)
-    monitor.blit(pad(" ",25),pad(colors.toBlit(colors.brown),25),pad(colors.toBlit(colors.brown),25))
-    monitor.setCursorPos(x,y+1)
-    monitor.blit(pad(" ",25),colors.toBlit(colors.brown)..pad(colors.toBlit(color),23)..colors.toBlit(colors.brown),colors.toBlit(colors.brown)..pad(colors.toBlit(color),23)..colors.toBlit(colors.brown))
-    monitor.setCursorPos(x,y+2)
-    monitor.blit(pad(" ",9)..name..pad(" ",8),pad(colors.toBlit(colors.white),25),colors.toBlit(colors.brown)..pad(colors.toBlit(color),23)..colors.toBlit(colors.brown))
-    monitor.setCursorPos(x,y+3)
-    monitor.blit(pad(" ",25),colors.toBlit(colors.brown)..pad(colors.toBlit(color),23)..colors.toBlit(colors.brown),colors.toBlit(colors.brown)..pad(colors.toBlit(color),23)..colors.toBlit(colors.brown))
-    monitor.setCursorPos(x,y+4)
-    monitor.blit(pad(" ",25),pad(colors.toBlit(colors.brown),25),pad(colors.toBlit(colors.brown),25))
+    monitor.blit(pad(" ",width),pad(colors.toBlit(color),width),pad(colors.toBlit(color),width))
+    for i=1,(height-2) do
+        monitor.setCursorPos(x,y+i)
+        monitor.blit(" ",colors.toBlit(color),colors.toBlit(color))
+        monitor.setCursorPos(x+(width-1),y+i)
+        monitor.blit(" ",colors.toBlit(color),colors.toBlit(color))
+    end
+    monitor.setCursor(x,(y+height-1))
+    monitor.blit(pad(" ",width),pad(colors.toBlit(color),width),pad(colors.toBlit(color),width))
+end
+function drawTwelves(monitor,name,color,x,y)
+    drawRectangle(25,5,colors.brown,monitor,name,color,x,y)
 end
 
 function drawDoubles(monitor,name,color,x,y)
-    monitor.setCursorPos(x,y)
-    monitor.blit(pad(" ",13),pad(colors.toBlit(colors.brown),13),pad(colors.toBlit(colors.brown),13))
-    monitor.setCursorPos(x,y+1)
-    monitor.blit(pad(" ",13),colors.toBlit(colors.brown)..pad(colors.toBlit(color),11)..colors.toBlit(colors.brown),colors.toBlit(colors.brown)..pad(colors.toBlit(color),11)..colors.toBlit(colors.brown))
-    monitor.setCursorPos(x,y+2)
-    monitor.blit(pad(" ",3)..name..pad(" ",2),pad(colors.toBlit(colors.white),13),colors.toBlit(colors.brown)..pad(colors.toBlit(color),11)..colors.toBlit(colors.brown))
-    monitor.setCursorPos(x,y+3)
-    monitor.blit(pad(" ",13),colors.toBlit(colors.brown)..pad(colors.toBlit(color),11)..colors.toBlit(colors.brown),colors.toBlit(colors.brown)..pad(colors.toBlit(color),11)..colors.toBlit(colors.brown))
-    monitor.setCursorPos(x,y+4)
-    monitor.blit(pad(" ",13),pad(colors.toBlit(colors.brown),13),pad(colors.toBlit(colors.brown),13))
-    
+    drawRectangle(13,5,colors.brown,monitor,name,color,x,y)
 end
 
 function drawBoard(monitor,numgrid)
@@ -182,6 +188,7 @@ function drawBoard(monitor,numgrid)
     for i,x in ipairs(numgrid) do
         drawBoardNumSquare(monitor,table.unpack(x))
     end
+    drawOutsideBoard(monitor)
 end
 
 function drawBoardNumSquare(monitor,x,y,num,oddity,color)
