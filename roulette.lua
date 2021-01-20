@@ -1,12 +1,3 @@
-function drawCircle(cX,cY,r,color)
-    local radius = math.pi * r
-    for i = 1,360 do
-        local x = math.sin(radius*i)
-        local y = math.cos(radius*i)
-        paintutils.drawLine(cX,cY,cX+x,xY+y,colors.red)
-    end
-end
-
 function rouletteOrder()
     local roulette_order = {
         table.pack("19",1,colors.red),
@@ -55,14 +46,14 @@ function wheelGrid()
     local roulette_order = rouletteOrder()
     local grid = {}
     local i = 1
-    for y = 9,50,7 do
-        if y == 16 or y == 37 then
-            for x = 19,61,7 do
+    for y = 2,22,4 do
+        if y == 6 or y == 18 then
+            for x = 5,41,4 do
                 grid[i] = table.pack(x,y,table.unpack(roulette_order[i]))
                 i = i + 1
             end
         else
-            for x = 19,54,7 do
+            for x = 5,35,4 do
                 grid[i] = table.pack(x,y,table.unpack(roulette_order[i]))
                 i = i + 1
             end
@@ -71,7 +62,7 @@ function wheelGrid()
     return grid
 end
 function drawWheel(monitor,grid)
-    monitor.setTextScale(0.5)
+    monitor.setTextScale(1)
     monitor.setCursorBlink(false)
     monitor.setCursorPos(1,1)
     monitor.setBackgroundColor(colors.green)
@@ -81,24 +72,11 @@ function drawWheel(monitor,grid)
     end
 end
 function drawSquare(monitor,x,y,num,oddity,color)
-   monitor.setCursorPos(x-3,y-3)
-   monitor.blit("       ","ccccccc","ccccccc")
-   monitor.setCursorPos(x-3,y-2)
-   monitor.blit("       ","c"..pad(colors.toBlit(color),5).."c","c"..pad(colors.toBlit(color),5).."c")
-   monitor.setCursorPos(x-3,y-1)
-   monitor.blit("       ","c"..pad(colors.toBlit(color),5).."c","c"..pad(colors.toBlit(color),5).."c")
-   monitor.setCursorPos(x-3,y)
-   if string.len(num) == 2 then
-       monitor.blit("  "..string.sub(num,1,1).." "..string.sub(num,2,2).."  ","c"..colors.toBlit(color)..colors.toBlit(colors.white)..colors.toBlit(color)..colors.toBlit(colors.white)..colors.toBlit(color).."c","c"..pad(colors.toBlit(color),5).."c")
-   else
-        monitor.blit("   "..num.."   ","c"..pad(colors.toBlit(color),2)..colors.toBlit(colors.white)..pad(colors.toBlit(color),2).."c","c"..pad(colors.toBlit(color),5).."c")
-   end
-   monitor.setCursorPos(x-3,y+1)
-   monitor.blit("       ","c"..pad(colors.toBlit(color),5).."c","c"..pad(colors.toBlit(color),5).."c")
-   monitor.setCursorPos(x-3,y+2)
-   monitor.blit("       ","c"..pad(colors.toBlit(color),5).."c","c"..pad(colors.toBlit(color),5).."c")
-   monitor.setCursorPos(x-3,y+3)
-   monitor.blit("       ","ccccccc","ccccccc")
+    local name = num
+    if string.len(num) == 2 then
+        name = string.sub(num,1,1).." "..string.sub(num,2,2)
+    end
+    drawRectangle(7,5,colors.brown,monitor,name,color,x,y)
 end
 function pad(str,n)
     local out = ""
@@ -112,8 +90,8 @@ function boardGrid()
     local board = {}
     local roulette_order = rouletteOrder()
     local i = 1
-    for x = 10,76,6 do
-        for y = 13,5,-4 do
+    for x = 7,73,6 do
+        for y = 11,3,-4 do
             board[i] = table.pack(x,y,table.unpack(roulette_order[searchTable(roulette_order,i.."")]))
             i = i + 1
         end
@@ -121,10 +99,6 @@ function boardGrid()
     board[i] = table.pack(4,7,table.unpack(roulette_order[searchTable(roulette_order,"00")]))
     i = i + 1
     board[i] = table.pack(4,11,table.unpack(roulette_order[searchTable(roulette_order,"0")]))
-    return board
-end
-
-function drawOutsideBoard(monitor)
     local twelves = {
         table.pack("1st  12",colors.green,7,15),
         table.pack("2nd  12",colors.green,31,15),
@@ -138,12 +112,7 @@ function drawOutsideBoard(monitor)
         table.pack("  ODDS  ",colors.green,55,19),
         table.pack("19 to 36",colors.green,67,19)
     }
-    for i,x in ipairs(twelves) do
-        drawTwelves(monitor,table.unpack(x))
-    end
-    for i,x in ipairs(doubles) do
-        drawDoubles(monitor,table.unpack(x))
-    end
+    return board,twelves,doubles
 end
 
 function drawRectangle(width,height,outer_color,monitor,text,inner_color,x,y)
@@ -179,34 +148,24 @@ function drawDoubles(monitor,name,color,x,y)
     drawRectangle(13,5,colors.brown,monitor,name,color,x,y)
 end
 
-function drawBoard(monitor,numgrid)
+function drawBoard(monitor)
     monitor.setTextScale(0.5)
     monitor.setCursorBlink(false)
     monitor.setCursorPos(1,1)
     monitor.setBackgroundColor(colors.green)
     monitor.clear()
+    local numgrid,twelves,doubles = boardGrid()
     for i,x in ipairs(numgrid) do
-        drawBoardNumSquare(monitor,table.unpack(x))
+        drawSquare(monitor,table.unpack(x))
     end
-    drawOutsideBoard(monitor)
+    for i,x in ipairs(twelves) do
+        drawTwelves(monitor,table.unpack(x))
+    end
+    for i,x in ipairs(doubles) do
+        drawDoubles(monitor,table.unpack(x))
+    end
 end
 
-function drawBoardNumSquare(monitor,x,y,num,oddity,color)
-    monitor.setCursorPos(x-3,y-2)
-    monitor.blit(pad(" ",7),pad(colors.toBlit(colors.brown),7),pad(colors.toBlit(colors.brown),7))
-    monitor.setCursorPos(x-3,y-1)
-    monitor.blit("       ","c"..pad(colors.toBlit(color),5).."c","c"..pad(colors.toBlit(color),5).."c")
-    monitor.setCursorPos(x-3,y)
-    if string.len(num) == 2 then
-        monitor.blit("  "..string.sub(num,1,1).." "..string.sub(num,2,2).."  ","c"..colors.toBlit(color)..colors.toBlit(colors.white)..colors.toBlit(color)..colors.toBlit(colors.white)..colors.toBlit(color).."c","c"..pad(colors.toBlit(color),5).."c")
-    else
-        monitor.blit("   "..num.."   ","c"..pad(colors.toBlit(color),2)..colors.toBlit(colors.white)..pad(colors.toBlit(color),2).."c","c"..pad(colors.toBlit(color),5).."c")
-    end
-    monitor.setCursorPos(x-3,y+1)
-    monitor.blit("       ","c"..pad(colors.toBlit(color),5).."c","c"..pad(colors.toBlit(color),5).."c")
-    monitor.setCursorPos(x-3,y+2)
-    monitor.blit(pad(" ",7),pad(colors.toBlit(colors.brown),7),pad(colors.toBlit(colors.brown),7))
-end
 
 function searchTable(t,val)
     for i,x in ipairs(t) do
