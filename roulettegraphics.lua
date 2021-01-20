@@ -72,6 +72,9 @@ function drawWheel(monitor)
         drawSquare(monitor,table.unpack(x))
     end
 end
+function highlightSquare(monitor,highlight_color,x,y,num,oddity,color)
+    drawBorder(7,5,monitor,highlight_color,x,y)
+end
 function drawSquare(monitor,x,y,num,oddity,color)
     local name = num
     if string.len(num) == 2 then
@@ -176,7 +179,5 @@ function searchTable(t,val)
     end
     return nil
 end
-
-
 
 
