@@ -48,12 +48,12 @@ function wheelGrid()
     local i = 1
     for y = 2,22,4 do
         if y == 6 or y == 18 then
-            for x = 5,41,4 do
+            for x = 5,41,6 do
                 grid[i] = table.pack(x,y,table.unpack(roulette_order[i]))
                 i = i + 1
             end
         else
-            for x = 5,35,4 do
+            for x = 5,35,6 do
                 grid[i] = table.pack(x,y,table.unpack(roulette_order[i]))
                 i = i + 1
             end
@@ -97,21 +97,21 @@ function boardGrid()
             i = i + 1
         end
     end
-    board[i] = table.pack(4,7,table.unpack(roulette_order[searchTable(roulette_order,"00")]))
+    board[i] = table.pack(2,4,table.unpack(roulette_order[searchTable(roulette_order,"00")]))
     i = i + 1
-    board[i] = table.pack(4,11,table.unpack(roulette_order[searchTable(roulette_order,"0")]))
+    board[i] = table.pack(2,8,table.unpack(roulette_order[searchTable(roulette_order,"0")]))
     local twelves = {
         table.pack("1st  12",colors.green,7,15),
         table.pack("2nd  12",colors.green,31,15),
         table.pack("3rd  12",colors.green,55,15),
     }
     local doubles = {
-        table.pack(" 1 to 18",colors.green,7,19),
-        table.pack("  EVEN  ",colors.green,19,19),
-        table.pack("  REDS  ",colors.red,31,19),
-        table.pack(" BLACKS ",colors.black,43,19),
-        table.pack("  ODDS  ",colors.green,55,19),
-        table.pack("19 to 36",colors.green,67,19)
+        table.pack("1 to 18",colors.green,7,19),
+        table.pack(" EVENS ",colors.green,19,19),
+        table.pack("  RED  ",colors.red,31,19),
+        table.pack(" BLACK ",colors.black,43,19),
+        table.pack("  ODD  ",colors.green,55,19),
+        table.pack("19to 36",colors.green,67,19)
     }
     return board,twelves,doubles
 end
