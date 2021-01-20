@@ -147,7 +147,7 @@ function drawOutsideBoard(monitor)
 end
 
 function drawRectangle(width,height,outer_color,monitor,text,inner_color,x,y)
-    local tlen = string.length(text)
+    local tlen = string.len(text)
     local padding = (width-2-tlen)/2
     for i = 1,(height-2) do
         monitor.setCursorPos(x+1,y+i)
