@@ -48,10 +48,11 @@ function spin_step(monitor,i,grid)
     highlightSquare(monitor, colors.white,table.unpack(grid[i%38 + 1]))
 end
 function spin_finish(monitor,i,grid)
-    for j=1,10 do
-        sleep(0.05)
+    highlightSquare(monitor, colors.brown,table.unpack(grid[(i-1)%38 + 1]))
+    for j=1,20 do
+        sleep(0.1)
         highlightSquare(monitor, colors.yellow,table.unpack(grid[(i)%38 + 1]))
-        sleep(0.05)
+        sleep(0.1)
         highlightSquare(monitor, colors.white,table.unpack(grid[(i)%38 + 1]))
     end
 end
