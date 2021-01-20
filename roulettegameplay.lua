@@ -1,7 +1,6 @@
 require("roulettegraphics")
 
 function spin(monitor)
-    local continue = true
     local i = 1
     local wheel_grid = wheelGrid()
     for j = 1,50 do
@@ -37,10 +36,12 @@ function spin(monitor)
     for j = 1,math.random(5) do
        spin_step(monitor,i,wheel_grid)
        sleep(0.5)
+       math.random(2)
        i = (i%38)+1
     end
     spin_finish(monitor,i,wheel_grid)
-    print(i)
+    local x,y,num = wheel_grind[i]
+    return num
 end
 
 function spin_step(monitor,i,grid)
