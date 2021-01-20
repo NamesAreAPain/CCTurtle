@@ -61,7 +61,8 @@ function wheelGrid()
     end
     return grid
 end
-function drawWheel(monitor,grid)
+function drawWheel(monitor)
+    local grid = wheelGrid()
     monitor.setTextScale(1)
     monitor.setCursorBlink(false)
     monitor.setCursorPos(1,1)
