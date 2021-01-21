@@ -376,6 +376,6 @@ end
 
 function Roulette:bankMsg(str)
     rednet.send(self.bank,str)
-    local x, y, z = rednet.recieve()
+    local x, y, z = rednet.receive()
     return y
 end
