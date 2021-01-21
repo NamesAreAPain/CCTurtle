@@ -86,6 +86,7 @@ function twelvesToButtons(buttons,num,color,x,y)
                     rstation.bets[num] = amount
                 end
                 drawChip(rstation.monitor,rstation.bets[num],x+23,y+1)
+                return true
             end,
             odds = 3,
             name = num
@@ -110,6 +111,7 @@ function doublesToButtons(buttons,num,color,x,y)
                     rstation.bets[num] = amount
                 end
                 drawChip(rstation.monitor,rstation.bets[num],x+11,y+1)
+                return true
             end,
             odds = 2,
             name = num
@@ -135,6 +137,7 @@ function squaresToButtons(buttons,x,y,num,oddity,color)
                     rstation.bets[num] = amount
                 end
                 drawChip(rstation.monitor,rstation.bets[num],x+5,y+1)
+                return true
             end,
             odds = 36,
             name = num
@@ -162,6 +165,7 @@ function squaresToButtons(buttons,x,y,num,oddity,color)
                         rstation.bets[edge_name] = amount
                     end
                     drawChip(rstation.monitor,rstation.bets[num],x+3,y)
+                    return true
                 end,
                 odds = 18,
                 name = edge_name
@@ -186,6 +190,7 @@ function squaresToButtons(buttons,x,y,num,oddity,color)
                         rstation.bets[edge_name] = amount
                     end
                     drawChip(rstation.monitor,rstation.bets[num],x+6,y+2)
+                    return true
                 end,
                 odds = 18,
                 name = edge_name
@@ -210,6 +215,7 @@ function squaresToButtons(buttons,x,y,num,oddity,color)
                         rstation.bets[edge_name] = amount
                     end
                     drawChip(rstation.monitor,rstation.bets[num],x+6,y)
+                    return true
                 end,
                 odds = 9,
                 name = edge_name
