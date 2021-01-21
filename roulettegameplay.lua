@@ -268,9 +268,7 @@ function RStation:userInput(x,y)
     print(x,y)
     for i,z in pairs(getButtons()) do
         if z.identify(x,y) then
-            if self.selected_amount > z.minimum_bet then
-                return z.bet(self,self.selected_amount)
-            end
+            return z.bet(self,self.selected_amount)
             break
         end
     end
