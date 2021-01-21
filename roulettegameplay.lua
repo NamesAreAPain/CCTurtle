@@ -266,7 +266,7 @@ function RStation:userInput(x,y)
         return false
     end
     print(x,y)
-    for i,z in ipairs(getButtons()) do
+    for i,z in pairs(getButtons()) do
         if z.identify(x,y) then
             if self.selected_amount > z.minimum_bet then
                 return z.bet(self,self.selected_amount)
@@ -274,7 +274,7 @@ function RStation:userInput(x,y)
             break
         end
     end
-    for i,z in ipairs(chips()) do
+    for i,z in pairs(chips()) do
         if z.identify(x,y) then
             self.selected_amount = z.val
         end
@@ -284,7 +284,7 @@ end
 
 function RStation:resolveBets(selected)
     local wagers = getButtons()
-    for i,x in ipairs(self.bets) do
+    for i,x in pairs(self.bets) do
        self:win(wagers[i].odds*x)
     end
 end
