@@ -26,7 +26,7 @@ function spin(monitor)
     end
     spin_finish(monitor,i,wheel_grid)
     i = (i%38)+1
-    local x,y,num,oddity,color = wheel_grid[i] 
+    local x,y,num,oddity,color = table.unpack(wheel_grid[i]) 
     print("winner",num)
     return num
 end
