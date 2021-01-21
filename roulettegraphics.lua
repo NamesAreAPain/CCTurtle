@@ -169,7 +169,7 @@ end
 
 function drawInfoBar(monitor,bal)
     monitor.setCursorPos(1,1)
-    monitor.blit(pad(" ",79),pad(color.toBlit(colors.green),79),pad(color.toBlit(colors.green),79))
+    monitor.blit(pad(" ",79),pad(colors.toBlit(colors.green),79),pad(colors.toBlit(colors.green),79))
     monitor.setCursorPos(1,1)
     monitor.blit(tostring(bal),pad(colors.toBlit(colors.white),string.len(tostring(bal))),pad(colors.toBlit(colors.purple),string.len(tostring(bal))))
     local chiplist, chipidx = chips()
