@@ -90,6 +90,20 @@ function twelvesToButtons(buttons,num,color,x,y)
                 drawChip(rstation.monitor,rstation.bets[num],x+23,y+1)
                 return true
             end,
+            match = function(selected)
+                if selected == "0" or selected == "00" then
+                    return false
+                end
+                if num == "1st  12" then
+                    return tonumber(selected) <= 12
+                end
+                if num == "1st  12" then
+                    return tonumber(selected) <= 24
+                end
+                if num == "1st  12" then
+                    return tonumber(selected) <= 36
+                end
+            end,
             odds = 3,
             name = num
         }
@@ -114,6 +128,29 @@ function doublesToButtons(buttons,num,color,x,y)
                 end
                 drawChip(rstation.monitor,rstation.bets[num],x+11,y+1)
                 return true
+            end,
+            match = function(selected)
+                if selected == "0" or selected == "00" then
+                    return false
+                end
+                if num == "1 to 18" then
+                    return tonumber(selected) <= 18
+                end
+                if num == " EVENS " then
+                    return tonumber(selected)%2 == 0
+                end
+                if num == "  RED  " then
+                    return color == colors.red
+                end
+                if num == " BLACK " then
+                    return color == colors.black
+                end
+                if num == "  ODD  " then
+                    return tonumber(selected)%2 == 1
+                end
+                if num == "19to 36" then
+                    return tonumber(selected) <= 36
+                end
             end,
             odds = 2,
             name = num
@@ -140,6 +177,9 @@ function squaresToButtons(buttons,x,y,num,oddity,color)
                 end
                 drawChip(rstation.monitor,rstation.bets[num],x+5,y+1)
                 return true
+            end,
+            match = function(selected)
+                return num == selected
             end,
             odds = 36,
             name = num
@@ -169,6 +209,9 @@ function squaresToButtons(buttons,x,y,num,oddity,color)
                     drawChip(rstation.monitor,rstation.bets[num],x+3,y)
                     return true
                 end,
+                match = function(selected)
+                    return num == selected or selected == ""..(tonumber(num)+1)
+                end,
                 odds = 18,
                 name = edge_name
             }
@@ -193,6 +236,9 @@ function squaresToButtons(buttons,x,y,num,oddity,color)
                     end
                     drawChip(rstation.monitor,rstation.bets[num],x+6,y+2)
                     return true
+                end,
+                match = function(selected)
+                    return num == selected or selected == ""..(tonumber(num)+3)
                 end,
                 odds = 18,
                 name = edge_name
@@ -221,6 +267,9 @@ function squaresToButtons(buttons,x,y,num,oddity,color)
                     end
                     drawChip(rstation.monitor,rstation.bets[num],x+6,y)
                     return true
+                end,
+                match = function(selected)
+                    return num == selected or selected == ""..(tonumber(num)+1) or selected == ""..(tonumber(num)+3) or selected == ""..(tonumber(num)+4)
                 end,
                 odds = 9,
                 name = edge_name
@@ -284,7 +333,9 @@ end
 function RStation:resolveBets(selected)
     local wagers = getButtons()
     for i,x in pairs(self.bets) do
-       self:win(wagers[i].odds*x)
+        if wagers[i].match(selected) then
+            self:win(wagers[i].odds*x)
+        end
     end
 end
 
