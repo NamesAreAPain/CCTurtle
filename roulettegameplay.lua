@@ -240,6 +240,7 @@ end
 function RStation:refresh()
     self.bets = {}
     if self.drive.getDiskID() == nil then
+        self.user = nil
         self:idEjected()
         return
     end
@@ -248,16 +249,19 @@ function RStation:refresh()
 end
 
 function RStation:idEjected()
-    self.user = nil
     drawWaitingForCard(self.monitor)
 end
 
 function RStation:idInserted()
     self.user = self.drive.getDiskID()
+    drawInfoBar(self.monitor,self:getBal())
     drawBoard(self.monitor)
 end
 
 function RStation:userInput(x,y)
+    if self.user == nil then
+        return false
+    end
     for i,z in ipairs(buttons()) do
         if z.identify(x,y) then
             if self.selected_amount > z.minimum_bet then
@@ -271,6 +275,7 @@ function RStation:userInput(x,y)
             self.selected_amount = z.val
         end
     end
+    return false
 end
 
 function RStation:resolveBets()
