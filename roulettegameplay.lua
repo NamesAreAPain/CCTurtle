@@ -238,10 +238,11 @@ function RStation:new(monitor,drive)
 end
 
 function RStation:refresh()
+    self.bets = {}
     if self.drive.getDiskID() == nil then
         self:idEjected()
+        return
     end
-    self.bets = {}
     drawBoard(self.monitor)
     drawInfoBar(self.monitor,self:getBal())
 end
@@ -310,6 +311,7 @@ function Roulette:new(wheel_monitor,bank_modem,bank_n,station_list)
 end
 
 function Roulette:start()
+    self:refresh()
     while true do
         self:waitForInputs()
     end
