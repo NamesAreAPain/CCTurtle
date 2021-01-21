@@ -50,7 +50,7 @@ end
 function getPathToUserFile(user)
     local path = "/account/"..user
     if not fs.exists(path) then
-        local accountWriteHandle = fs.open(getPathToUserFile(user),"w")
+        local accountWriteHandle = fs.open(path,"w")
         accountWriteHandle.write(tostring(0))
         accountWriteHandle.close()
     end
