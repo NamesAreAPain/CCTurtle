@@ -160,7 +160,7 @@ function chips()
             identify = function(x,y)
                 return x == 79 and y == 1
             end
-        },
+        }
     } 
     local y = {"10K","1K","100","10","1"}
     return x,y
