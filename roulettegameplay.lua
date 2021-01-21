@@ -260,8 +260,7 @@ function RStation:userInput(x,y)
     for i,z in ipairs(buttons()) do
         if z.identify(x,y) then
             if self.selected_amount > z.minimum_bet then
-                z.bet(self,self.selected_amount)
-                return
+                return z.bet(self,self.selected_amount)
             end
             break
         end
@@ -306,8 +305,16 @@ function Roulette:new(wheel_monitor,bank_modem,bank_n,station_list)
     for i,x in ipairs(station_list) do
         x.master = t
     end
+    t.timer = -1
     return t
 end
+
+function Roulette:start()
+    while true do
+        self:waitForInputs()
+    end
+end
+
 
 function Roulette:stationFromMonitor(monitor_name)
     for i,x in ipairs(self.stations) do
@@ -327,18 +334,23 @@ function Roulette:stationFromDrive(drive_name)
 end
 
 function Roulette:waitForInputs()
-    local event = nil
+    local event = nil 
     while true do
         event = {os.pullEvent()}
         if event[1] == "monitor_touch" then
-            self:stationFromMonitor(event[2]):userInput(tonumber(event[3]),tonumber(event[4]))
+            if self:stationFromMonitor(event[2]):userInput(tonumber(event[3]),tonumber(event[4])) then
+                self.timer = os.startTimer(10)
+            end
         elseif event[1] == "disk" then
             self:stationFromDrive(event[2]):idInserted()
         elseif event[1] == "disk_eject" then
             self:stationFromDrive(event[2]):idEjected()
         elseif event[1] == "timer" then
-            self:resolveBets(spin(self.wheel))
-            self:refresh()
+            if event[2] == self.timer then
+                self:resolveBets(spin(self.wheel))
+                self:refresh()
+                break
+            end
         end
     end
 end
