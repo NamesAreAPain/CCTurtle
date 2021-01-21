@@ -225,7 +225,7 @@ end
 
 RStation = {}
 function RStation:new(monitor,drive)
-    local t = setmetatable({},{__index = Turtle})
+    local t = setmetatable({},{__index = RStation})
     t.monitor_name = monitor
     t.monitor = peripheral.wrap(monitor)
     t.drive_name = drive
@@ -294,7 +294,7 @@ end
 
 Roulette = {}
 function Roulette:new(wheel_monitor,bank_modem,bank_n,station_list)
-    local t = setmetatable({},{__index = Turtle})
+    local t = setmetatable({},{__index = Roulette})
     t.modem = bank_modem
     t.bank = bank_n
     rednet.open(bank_modem)

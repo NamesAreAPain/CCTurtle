@@ -121,7 +121,7 @@ end
 
 function chips()
     local x = {
-        "10K" = {
+        ["10K"] = {
             fgcol = colors.white,
             bgcol = colors.purple, 
             val = 10000,
@@ -129,7 +129,7 @@ function chips()
                 return x >= 69 and x <= 71 and y == 1
             end
         },
-        "1K" = {
+        ["1K"] = {
             fgcol = colors.black,
             bgcol = colors.yellow,
             val = 1000,
@@ -137,7 +137,7 @@ function chips()
                 return x >= 72 and x <= 73 and y == 1
             end
         },
-        "100" = {
+        ["100"] = {
             fgcol = colors.white,
             bgcol = colors.blue,
             val = 100,
@@ -145,7 +145,7 @@ function chips()
                 return x >= 74 and x <= 76 and y == 1
             end
         },
-        "10" = {
+        ["10"] = {
             fgcol = colors.white,
             bgcol = colors.gray,
             val = 10,
@@ -153,7 +153,7 @@ function chips()
                 return x >= 77 and x <= 78 and y == 1
             end
         },
-        "1" = {
+        ["1"] = {
             fgcol = colors.black,
             bgcol = colors.white,
             val = 1,
