@@ -53,7 +53,7 @@ function drawWaitingForCard(monitor)
     drawRectangle(79,23,colors.green,monitor,"Please Insert Your Identification Card.",colors.green,1,1)
 end
 
-function buttons()
+function getButtons()
     local squares, twelves, doubles = boardGrid()
     local buttons = {}
     for i,x in ipairs(squares) do
@@ -266,7 +266,7 @@ function RStation:userInput(x,y)
         return false
     end
     print(x,y)
-    for i,z in ipairs(buttons()) do
+    for i,z in ipairs(getButtons()) do
         if z.identify(x,y) then
             if self.selected_amount > z.minimum_bet then
                 return z.bet(self,self.selected_amount)
@@ -283,7 +283,7 @@ function RStation:userInput(x,y)
 end
 
 function RStation:resolveBets(selected)
-    local wagers = buttons()
+    local wagers = getButtons()
     for i,x in ipairs(self.bets) do
        self:win(wagers[i].odds*x)
     end
