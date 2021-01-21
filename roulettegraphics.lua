@@ -120,7 +120,7 @@ function boardGrid()
 end
 
 function chips()
-    return {
+    local x = {
         "10K" = {
             fgcol = colors.white,
             bgcol = colors.purple, 
@@ -161,7 +161,9 @@ function chips()
                 return x == 79 and y == 1
             end
         },
-    }, {"10K","1K","100","10","1"}
+    } 
+    local y = {"10K","1K","100","10","1"}
+    return x,y
 end
 
 
