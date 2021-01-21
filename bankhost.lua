@@ -7,14 +7,14 @@ function host(modem_name)
     local message = ""
     local protocol = ""
     while true do
-        sender,message,protocol = modem.recieve()
+        sender,message,protocol = rednet.recieve()
         message = split(message,"-")
         if message[1] == "deposit" then
-            modem.send(sender,deposit(message[2],tonumber(message[3])))
+            rednet.send(sender,deposit(message[2],tonumber(message[3])))
         elseif message[1] == "withdraw" then
-            modem.send(sender,withdraw(message[2],tonumber(message[3])))
+            rednet.send(sender,withdraw(message[2],tonumber(message[3])))
         elseif message[1] == "checkbal" then
-            modem.send(sender,getBalance(message[2]))
+            rednet.send(sender,getBalance(message[2]))
         end
     end
 end
