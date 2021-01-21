@@ -270,7 +270,7 @@ function RStation:userInput(x,y)
             break
         end
     end
-    for i,z in ipairs(chips) do
+    for i,z in ipairs(chips()) do
         if z.identify(x,y) then
             self.selected_amount = z.val
         end
