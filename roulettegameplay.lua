@@ -59,10 +59,10 @@ function buttons()
     for i,x in ipairs(squares) do
         squaresToButtons(buttons,table.unpack(x))
     end
-    for i,x in ipairs(squares) do
+    for i,x in ipairs(twelves) do
         twelvesToButtons(buttons,table.unpack(x))
     end
-    for i,x in ipairs(squares) do
+    for i,x in ipairs(buttons) do
         doublesToButtons(buttons,table.unpack(x))
     end
     return buttons
