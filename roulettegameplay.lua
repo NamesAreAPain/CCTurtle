@@ -204,11 +204,14 @@ function squaresToButtons(buttons,x,y,num,oddity,color)
                 end,
                 bet = function(rstation,amount)
                     if amount < 1 then
+                        print("no amount selected")
                         return false
                     end
                     if rstation:wager(amount) then
+                        print("isufficent balance")
                         return false
                     end
+                    print("placing bet")
                     if rstation.bets[edge_name] ~= nil then
                         rstation.bets[edge_name] = amount + rstation.bets[edge_name]
                     else 
@@ -279,7 +282,7 @@ function RStation:userInput(x,y)
     return false
 end
 
-function RStation:resolveBets()
+function RStation:resolveBets(selected)
     local wagers = buttons()
     for i,x in ipairs(self.bets) do
        self:win(wagers[i].odds*x)
@@ -369,9 +372,9 @@ function Roulette:refresh()
     end
 end
 
-function Roulette:resolveBets()
+function Roulette:resolveBets(selected)
     for i,x in ipairs(self.stations) do
-        x:resolveBets()
+        x:resolveBets(selected)
     end
 end
 
