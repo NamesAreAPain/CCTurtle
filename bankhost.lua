@@ -7,7 +7,7 @@ function host(modem_name)
     local message = ""
     local protocol = ""
     while true do
-        sender,message,protocol = rednet.recieve()
+        sender,message,protocol = rednet.receive()
         message = split(message,"-")
         if message[1] == "deposit" then
             rednet.send(sender,deposit(message[2],tonumber(message[3])))
