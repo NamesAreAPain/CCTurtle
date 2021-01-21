@@ -62,7 +62,7 @@ function buttons()
     for i,x in ipairs(twelves) do
         twelvesToButtons(buttons,table.unpack(x))
     end
-    for i,x in ipairs(buttons) do
+    for i,x in ipairs(doubles) do
         doublesToButtons(buttons,table.unpack(x))
     end
     return buttons
