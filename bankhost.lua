@@ -1,5 +1,5 @@
 function host(modem_name)
-    if not exists("/accounts") then
+    if not fs.exists("/accounts") then
         fs.makeDir("/accounts")
     end
     local modem = rednet.open(modem_name)

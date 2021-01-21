@@ -119,6 +119,83 @@ function boardGrid()
     return board,twelves,doubles
 end
 
+function chips()
+    return {
+        "10K" = {
+            fgcol = colors.white,
+            bgcol = colors.purple, 
+            val = 10000,
+            identify = function(x,y)
+                return x >= 69 and x <= 71 and y == 1
+            end
+        },
+        "1K" = {
+            fgcol = colors.black,
+            bgcol = colors.yellow,
+            val = 1000,
+            identify = function(x,y)
+                return x >= 72 and x <= 73 and y == 1
+            end
+        },
+        "100" = {
+            fgcol = colors.white,
+            bgcol = colors.blue,
+            val = 100,
+            identify = function(x,y)
+                return x >= 74 and x <= 76 and y == 1
+            end
+        },
+        "10" = {
+            fgcol = colors.white,
+            bgcol = colors.gray,
+            val = 10,
+            identify = function(x,y)
+                return x >= 77 and x <= 78 and y == 1
+            end
+        },
+        "1" = {
+            fgcol = colors.black,
+            bgcol = colors.white,
+            val = 1,
+            identify = function(x,y)
+                return x == 79 and y == 1
+            end
+        },
+    }, {"10K","1K","100","10","1"}
+end
+
+
+function drawInfoBar(monitor,bal)
+    monitor.setCursorPos(1,1)
+    monitor.blit(tostring(bal),pad(colors.toBlit(colors.white),string.len(tostring(bal))),pad(colors.toBlit(colors.purple),string.len(tostring(bal))))
+    local chiplist, local chipidx = chips()
+    local str = ""
+    local fgcstr = ""
+    local bgcstr = ""
+    for i,x in ipairs(chipidx) do
+        str = str..x
+        fgcstr = fgcstr..pad(colors.toBlit(chiplist[x].fgcol),string.len(x))
+        bgcstr = bgcstr..pad(colors.toBlit(chiplist[x].bgcol),string.len(x))
+    end
+    monitor.setCursorPos(79-string.len(str)+1,1)
+    monitor.blit(str,fgcstr,bgcstr)
+end
+
+function drawChip(monitor,amount,x,y)
+    monitor.setCursorPos(x,y)
+    local chiplist, local chipidx = chips()
+    for i,z in ipairs(chipidx) do
+       if amount/chiplist[z].val > 1 and amount/chiplist[z].val < 10 then
+            local r = ""..math.floor(amount/chiplist[z].val)
+            local s = colors.toBlit(chiplist[z].fgcol)
+            local t = colors.toBlit(chiplist[z].bgcol)
+            monitor.blit(r,s,t)
+            return
+       end
+    end
+    monitor.blit(" ",colors.toBlit(colors.black),colors.toBlit(colors.black))
+end
+
 function drawRectangle(width,height,outer_color,monitor,text,inner_color,x,y)
     local tlen = string.len(text)
     local padding = (width-2-tlen)/2
