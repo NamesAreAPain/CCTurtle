@@ -298,8 +298,7 @@ function RStation:refresh()
         self:idEjected()
         return
     end
-    drawBoard(self.monitor)
-    drawInfoBar(self.monitor,self:getBal())
+    self:idInserted()
 end
 
 function RStation:idEjected()
@@ -316,7 +315,6 @@ function RStation:userInput(x,y)
     if self.user == nil then
         return false
     end
-    print(x,y)
     for i,z in pairs(getButtons()) do
         if z.identify(x,y) then
             return z.bet(self,self.selected_amount)
