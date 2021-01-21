@@ -341,7 +341,12 @@ end
 
 function RStation:wager(amount)
     local x = self.master:bankMsg("withdraw-"..self.user.."-"..amount)
-    return x == "ERROR"
+    if x == "ERROR" then 
+        return false
+    else
+        drawInfoBar(self.monitor,tonumber(x))
+        return true
+    end
 end
 
 function RStation:win(amount)
@@ -400,7 +405,6 @@ function Roulette:waitForInputs()
         event = {os.pullEvent()}
         if event[1] == "monitor_touch" then
             if self:stationFromMonitor(event[2]):userInput(tonumber(event[3]),tonumber(event[4])) then
-                drawInfoBar(self.monitor,self:getBal())
                 self.timer = os.startTimer(10)
             end
         elseif event[1] == "disk" then

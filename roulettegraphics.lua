@@ -187,7 +187,7 @@ function drawChip(monitor,amount,x,y)
     monitor.setCursorPos(x,y)
     local chiplist, chipidx = chips()
     for i,z in ipairs(chipidx) do
-       if amount/chiplist[z].val > 1 and amount/chiplist[z].val < 10 then
+       if amount/chiplist[z].val >= 1 and amount/chiplist[z].val < 10 then
             local r = ""..math.floor(amount/chiplist[z].val)
             local s = colors.toBlit(chiplist[z].fgcol)
             local t = colors.toBlit(chiplist[z].bgcol)
