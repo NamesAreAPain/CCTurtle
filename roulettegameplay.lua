@@ -54,7 +54,7 @@ function drawWaitingForCard(monitor)
 end
 
 function buttons()
-    local squares, local twelves, local doubles = boardGrid()
+    local squares, twelves, doubles = boardGrid()
     local buttons = {}
     for i,x in ipairs(squares) do
         squaresToButtons(buttons,table.unpack(x))
@@ -369,6 +369,6 @@ end
 
 function Roulette:bankMsg(str)
     rednet.send(self.bank,str)
-    local x, local y, local z = rednet.recieve()
+    local x, y, z = rednet.recieve()
     return y
 end

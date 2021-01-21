@@ -168,7 +168,7 @@ end
 function drawInfoBar(monitor,bal)
     monitor.setCursorPos(1,1)
     monitor.blit(tostring(bal),pad(colors.toBlit(colors.white),string.len(tostring(bal))),pad(colors.toBlit(colors.purple),string.len(tostring(bal))))
-    local chiplist, local chipidx = chips()
+    local chiplist, chipidx = chips()
     local str = ""
     local fgcstr = ""
     local bgcstr = ""
@@ -183,7 +183,7 @@ end
 
 function drawChip(monitor,amount,x,y)
     monitor.setCursorPos(x,y)
-    local chiplist, local chipidx = chips()
+    local chiplist, chipidx = chips()
     for i,z in ipairs(chipidx) do
        if amount/chiplist[z].val > 1 and amount/chiplist[z].val < 10 then
             local r = ""..math.floor(amount/chiplist[z].val)
