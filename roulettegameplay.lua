@@ -262,6 +262,7 @@ function RStation:userInput(x,y)
     if self.user == nil then
         return false
     end
+    print(x,y)
     for i,z in ipairs(buttons()) do
         if z.identify(x,y) then
             if self.selected_amount > z.minimum_bet then
