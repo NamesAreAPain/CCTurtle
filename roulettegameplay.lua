@@ -254,8 +254,8 @@ end
 
 function RStation:idInserted()
     self.user = self.drive.getDiskID()
-    drawInfoBar(self.monitor,self:getBal())
     drawBoard(self.monitor)
+    drawInfoBar(self.monitor,self:getBal())
 end
 
 function RStation:userInput(x,y)
