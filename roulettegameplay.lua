@@ -26,6 +26,7 @@ function spin(monitor)
     end
     spin_finish(monitor,i,wheel_grid)
     local x,y,num,oddity,color = wheel_grid[i]
+    print("winner",num)
     return num
 end
 
@@ -269,7 +270,6 @@ function RStation:userInput(x,y)
     for i,z in pairs(getButtons()) do
         if z.identify(x,y) then
             return z.bet(self,self.selected_amount)
-            break
         end
     end
     for i,z in pairs(chips()) do
