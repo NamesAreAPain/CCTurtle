@@ -29,7 +29,8 @@ function Shop:drawPrices()
     local max_name = ""
     local max_price = -1
     for i,x in ipairs(fs.list("/prices")) do
-       self.monitor.setCursorPos(1,1+i)
+       print(i,x)
+        self.monitor.setCursorPos(1,1+i)
        name,item = sanitize(getRecord(x))
        price = getPrice(item)
        self.monitor.blit(twoColumns(18,name,price),pad(colors.toBlit(colors.orange),18),pad(colors.toBlit(colors.black),18))
@@ -47,10 +48,10 @@ function Shop:drawCashOut()
     self.monitor.blit(centerText("REDEEM",18),pad(colors.toBlit(colors.orange),18),pad(colors.toBlit(colors.red),18))
     self.monitor.setCursorPos(1,16)
     self.monitor.blit(centerText(({sanitize(self.name)})[1],18),pad(colors.toBlit(colors.orange),18),pad(colors.toBlit(colors.red),18))
-    self.monitor.setCursor(1,17)
+    self.monitor.setCursorPos(1,17)
     self.monitor.blit(pad(" ",18),pad(colors.toBlit(colors.white),18),pad(colors.toBlit(colors.purple),18))
     self.monitor.setCursorPos(1,18)
-    self.monitor.blit(center("CLICK HERE",18),pad(colors.toBlit(colors.white),18),pad(colors.toBlit(colors.purple),18))
+    self.monitor.blit(centerText("CLICK HERE",18),pad(colors.toBlit(colors.white),18),pad(colors.toBlit(colors.purple),18))
     self.monitor.setCursorPos(1,19)
     self.monitor.blit(pad(" ",18),pad(colors.toBlit(colors.white),18),pad(colors.toBlit(colors.purple),18))
 end
