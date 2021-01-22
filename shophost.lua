@@ -15,8 +15,8 @@ function Shop:start()
 end
 
 function Shop:refresh()
-    Shop:drawPrices()
-    Shop:drawCashOut()
+    self:drawPrices()
+    self:drawCashOut()
 end
 
 function Shop:drawPrices()
