@@ -1,7 +1,9 @@
 Shop = {}
-function Shop:new(monitor,router,bankn)
+function Shop:new(monitor_price,monitor_bal,router,drive,bankn)
     local t = setmetatable({},{__index = Shop})
-    t.monitor = peripheral.wrap(monitor)
+    t.monitor = peripheral.wrap(monitor_price)
+    t.bal_monitor = peripheral.wrap(monitor_bal)
+    t.drive = peripheral.wrap(drive)
     rednet.open(router)
     t.bank = bankn
     t.cash_out = ""
@@ -12,11 +14,22 @@ function Shop:start()
     self.monitor.setCursorBlink(false)
     self.monitor.setTextScaling(1)
     self.monitor.setBackgroundColor(colors.black)
+    self.monitor.clear()
+    self.bal_monitor.setCursorBlink(false)
+    self.bal_monitor.setTextScaling(1)
+    self.bal_monitor.setBackgroundColor(colors.black)
+    self.bal_monitor.clear()
+    self:refresh()
 end
 
 function Shop:refresh()
     self:drawPrices()
     self:drawCashOut()
+    if self.drive.getDiskID() == nil then
+        self:drawInsertID()
+    else 
+        self:drawBalScreen()
+    end
 end
 
 function Shop:drawPrices()
@@ -56,6 +69,26 @@ function Shop:drawCashOut()
     self.monitor.blit(pad(" ",18),pad(colors.toBlit(colors.white),18),pad(colors.toBlit(colors.purple),18))
 end
 
+function Shop:drawInsertID()
+   self.bal_monitor.setCursorPos(1,3)
+   self.bal_monitor.blit(centerText("Please Insert ID",18),pad(colors.toBlit(colors.orange),18),pad(colors.toBlit(colors.black),18))
+end
+
+function Shop:drawBalScreen()
+    self.bal_monitor.setCursorPos(1,1)
+    self.bal_monitor.blit("Balance:",pad(colors.toBlit(colors.white),8),pad(colors.toBlit(colors.purple)))
+    self.bal_monitor.setCursorPos(1,2)
+    local bal = self:getBal()
+    self.bal_monitor.blit(twoColumns(18,"",bal),pad(colors.toBlit(colors.cyan),18),pad(colors.toBlit(colors.black),18))
+end
+
+function Shop:getBal()
+    local x = self.disk.getDiskID()
+    if x ~= nil then
+        rednet.send(self.bank,"checkbal-"..x)
+        return tonumber(rednet.receive())
+    end
+end
 function sanitize(item_name)
     local name = getRecord(item_name)
     local j = 0
