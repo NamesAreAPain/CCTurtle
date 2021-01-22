@@ -98,7 +98,7 @@ function sumPrice(item)
 end
 
 
-function priceFunction(n,pinf,p0,c)
+function priceFunction(n,name,pinf,p0,c)
     if pinf == nil then return nil end
     return math.floor((p0-pinf)*math.exp(-1*c*n) + pinf)
 end
