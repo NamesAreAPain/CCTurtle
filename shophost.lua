@@ -21,6 +21,7 @@ function Shop:start()
     self.bal_monitor.setBackgroundColor(colors.black)
     self.bal_monitor.clear()
     self:refresh()
+    self:inputLoop()
 end
 
 function Shop:inputLoop()
