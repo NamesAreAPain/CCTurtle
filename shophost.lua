@@ -29,7 +29,7 @@ function Shop:drawPrices()
     local max_name = ""
     local max_price = ""
     for i,x in ipairs(fs.list("/prices")) do
-       self.setCursorPos(1,1+i)
+       self.monitor.setCursorPos(1,1+i)
        name,item = sanitize(getRecord(x))
        price = getPrice(item)
        self.monitor.blit(twoColumns(18,name,price),pad(colors.toBlit(colors.orange),18),pad(colors.toBlit(colors.black),18))
