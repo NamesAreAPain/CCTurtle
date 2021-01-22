@@ -340,10 +340,10 @@ end
 function RStation:wager(amount)
     local x = self.master:bankMsg("withdraw-"..self.user.."-"..amount)
     if x == "ERROR" then 
-        return false
+        return true
     else
         drawInfoBar(self.monitor,tonumber(x))
-        return true
+        return false
     end
 end
 
