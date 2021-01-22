@@ -92,7 +92,7 @@ function sumPrice(item)
     local record = table.pack(getRecord(item))
     local total = 0
     for i = 1,n do
-        total = total + priceFunc(i,table.unpack(record))
+        total = total + priceFunction(i,table.unpack(record))
     end
     return total
 end
