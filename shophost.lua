@@ -22,6 +22,20 @@ function Shop:start()
     self:refresh()
 end
 
+function Shop:inputLoop()
+    local event = nil 
+    while true do
+        event = {os.pullEvent()}
+        if event[1] == "monitor_touch" then
+        elseif event[1] == "disk" then
+        elseif event[1] == "disk_eject" then
+        elseif event[1] == "turtle_inventory" then
+        end
+        self:refresh()
+    end
+end
+
+
 function Shop:refresh()
     self:drawPrices()
     self:drawCashOut()
@@ -43,7 +57,7 @@ function Shop:drawPrices()
     local max_price = -1
     for i,x in ipairs(fs.list("/prices")) do
        print(i,x)
-        self.monitor.setCursorPos(1,1+i)
+        self.monitor.setCursorPos(1,2+i)
        name,item = sanitize(getRecord(x))
        price = getPrice(item)
        self.monitor.blit(twoColumns(18,name,price),pad(colors.toBlit(colors.orange),18),pad(colors.toBlit(colors.black),18))
@@ -57,6 +71,8 @@ function Shop:drawPrices()
 end
 
 function Shop:drawCashOut()
+    self.monitor.setCursorPos(1,14)
+    self.monitor.blit(pad(" ",18),pad(colors.toBlit(colors.white),18),pad(colors.toBlit(colors.purple),18))
     self.monitor.setCursorPos(1,15)
     self.monitor.blit(centerText("REDEEM",18),pad(colors.toBlit(colors.orange),18),pad(colors.toBlit(colors.red),18))
     self.monitor.setCursorPos(1,16)
