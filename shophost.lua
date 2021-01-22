@@ -84,9 +84,11 @@ end
 
 function Shop:getBal()
     local x = self.disk.getDiskID()
+    local y = ""
     if x ~= nil then
         rednet.send(self.bank,"checkbal-"..x)
-        return tonumber(rednet.receive())
+        x,y = rednet.receive()
+        return tonumber(y)
     end
 end
 function sanitize(item_name)
