@@ -12,11 +12,11 @@ end
 
 function Shop:start()
     self.monitor.setCursorBlink(false)
-    self.monitor.setTextScaling(1)
+    self.monitor.setTextScale(1)
     self.monitor.setBackgroundColor(colors.black)
     self.monitor.clear()
     self.bal_monitor.setCursorBlink(false)
-    self.bal_monitor.setTextScaling(1)
+    self.bal_monitor.setTextScale(1)
     self.bal_monitor.setBackgroundColor(colors.black)
     self.bal_monitor.clear()
     self:refresh()
@@ -76,7 +76,7 @@ end
 
 function Shop:drawBalScreen()
     self.bal_monitor.setCursorPos(1,1)
-    self.bal_monitor.blit("Balance:",pad(colors.toBlit(colors.white),8),pad(colors.toBlit(colors.purple)))
+    self.bal_monitor.blit("Balance:",pad(colors.toBlit(colors.white),8),pad(colors.toBlit(colors.purple),8))
     self.bal_monitor.setCursorPos(1,2)
     local bal = self:getBal()
     self.bal_monitor.blit(twoColumns(18,"",bal),pad(colors.toBlit(colors.cyan),18),pad(colors.toBlit(colors.black),18))
