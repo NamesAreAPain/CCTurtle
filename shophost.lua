@@ -181,7 +181,7 @@ function getRecord(item)
 end
 
 function getPrice(item,n)
-    local inv = refinedstorage.getItems({name= item})
+    local inv = refinedstorage.getItem({name= item})
     if inv[1] == nil then
         return nil
     end
