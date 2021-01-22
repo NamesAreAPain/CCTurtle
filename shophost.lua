@@ -1,6 +1,7 @@
 Shop = {}
 function Shop:new(monitor_price,monitor_bal,router,drive,bankn)
     local t = setmetatable({},{__index = Shop})
+    t.price_monitor_name = monitor_price
     t.monitor = peripheral.wrap(monitor_price)
     t.bal_monitor = peripheral.wrap(monitor_bal)
     t.drive = peripheral.wrap(drive)
@@ -27,14 +28,52 @@ function Shop:inputLoop()
     while true do
         event = {os.pullEvent()}
         if event[1] == "monitor_touch" then
+            if event[2] == self.price_monitor_name and y <= 17 then
+                self:redeem()
+            end
         elseif event[1] == "disk" then
         elseif event[1] == "disk_eject" then
         elseif event[1] == "turtle_inventory" then
+            self:deposit()
         end
         self:refresh()
     end
 end
 
+function Shop:redeem()
+    local t = refinedstorage.getItems(self.cash_out)
+    if t == nil then return "No items available" end
+    if t[1].count < 1 then return "No items available" end
+    if self:bankWithdraw(getPrice(self.cash_out)) then return "Insufficient Funds" end
+    refinedstorage.extractItem(self.cash_out)
+    turtle.drop()
+    return "Deposit Successful"
+end
+
+function Shop:deposit()
+    turtle.turnRight()
+    local any_items = true
+    local t = nil
+    while any_items do
+        any_items = false
+        os.sleep(0.5)
+        for i=1,16 do
+            t = turtle.getItemDetail(i)
+            while t ~= nil do
+                any_items = true
+                t = getPrice(t.name)
+                if t ~= nil then
+                    self:bankDeposit(t)
+                    self:drawBalScreen()
+                end
+                turtle.select(i)
+                turtle.drop()
+            end
+        end
+    end
+    turtle.turnLeft()
+    turtle.select(1)
+end
 
 function Shop:refresh()
     self:drawPrices()
@@ -107,6 +146,20 @@ function Shop:getBal()
         return tonumber(y)
     end
 end
+function Shop:bankWithdraw(amount)
+    rednet.send(self.bank,"withdraw"..self.drive.getDiskID()..amount)
+    local x,y = rednet.recieve()
+    if y == "ERROR" then
+        return true
+    end
+    return false
+end
+function Shop:bankDeposit(amount)
+    rednet.send(self.bank,"deposit"..self.drive.getDiskID()..amount)
+    local x,y = rednet.recieve()
+    return false
+end
+
 function sanitize(item_name)
     local name = getRecord(item_name)
     local j = 0
