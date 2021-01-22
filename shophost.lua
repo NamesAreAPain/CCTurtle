@@ -126,11 +126,13 @@ function Shop:drawCashOut()
 end
 
 function Shop:drawInsertID()
-   self.bal_monitor.setCursorPos(1,3)
-   self.bal_monitor.blit(centerText("Please Insert ID",18),pad(colors.toBlit(colors.orange),18),pad(colors.toBlit(colors.black),18))
+    self.bal_monitor.clear()
+    self.bal_monitor.setCursorPos(1,3)
+    self.bal_monitor.blit(centerText("Please Insert ID",18),pad(colors.toBlit(colors.orange),18),pad(colors.toBlit(colors.black),18))
 end
 
 function Shop:drawBalScreen()
+    self.bal_monitor.clear()
     self.bal_monitor.setCursorPos(1,1)
     self.bal_monitor.blit("Balance:",pad(colors.toBlit(colors.white),8),pad(colors.toBlit(colors.purple),8))
     self.bal_monitor.setCursorPos(1,2)
