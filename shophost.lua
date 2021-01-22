@@ -27,7 +27,7 @@ function Shop:drawPrices()
     local price = 0
     local t = 0
     local max_name = ""
-    local max_price = ""
+    local max_price = -1
     for i,x in ipairs(fs.list("/prices")) do
        self.monitor.setCursorPos(1,1+i)
        name,item = sanitize(getRecord(x))
