@@ -42,7 +42,7 @@ function Shop:drawPrices()
     self.cash_out = max_name
 end
 
-function drawCashOut()
+function Shop:drawCashOut()
     self.monitor.setCursor(1,15)
     self.monitor.blit(centerText("REDEEM",18),pad(colors.toBlit(colors.orange),18),pad(colors.toBlit(colors.red),18))
     self.monitor.setCursor(1,16)
