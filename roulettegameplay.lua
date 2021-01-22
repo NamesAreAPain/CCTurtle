@@ -149,7 +149,7 @@ function doublesToButtons(buttons,num,color,x,y)
                     return tonumber(selected)%2 == 1
                 end
                 if num == "19to 36" then
-                    return tonumber(selected) <= 36
+                    return tonumber(selected) <= 36 and tonumber(selected) > 18
                 end
             end,
             odds = 2,
