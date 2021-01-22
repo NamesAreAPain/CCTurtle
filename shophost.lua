@@ -21,7 +21,7 @@ end
 
 function Shop:drawPrices()
     self.monitor.setCursorPos(1,1)
-    self.monitor.blit(center("EXCHANGE",18),pad(colors.toBlit(colors.orange),18),pad(colors.toBlit(colors.red),18))
+    self.monitor.blit(centerText("EXCHANGE",18),pad(colors.toBlit(colors.orange),18),pad(colors.toBlit(colors.red),18))
     local name = ""
     local item = ""
     local price = 0
@@ -44,9 +44,9 @@ end
 
 function drawCashOut()
     self.monitor.setCursor(1,15)
-    self.monitor.blit(center("REDEEM",18),pad(colors.toBlit(colors.orange),18),pad(colors.toBlit(colors.red),18))
+    self.monitor.blit(centerText("REDEEM",18),pad(colors.toBlit(colors.orange),18),pad(colors.toBlit(colors.red),18))
     self.monitor.setCursor(1,16)
-    self.monitor.blit(center(({sanitize(self.name)})[1],18),pad(colors.toBlit(colors.orange),18),pad(colors.toBlit(colors.red),18))
+    self.monitor.blit(centerText(({sanitize(self.name)})[1],18),pad(colors.toBlit(colors.orange),18),pad(colors.toBlit(colors.red),18))
     self.monitor.setCursor(1,17)
     self.monitor.blit(pad(" ",18),pad(colors.toBlit(colors.white),18),pad(colors.toBlit(colors.purple),18))
     self.monitor.setCursor(1,18)
