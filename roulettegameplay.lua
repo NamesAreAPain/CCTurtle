@@ -97,11 +97,11 @@ function twelvesToButtons(buttons,num,color,x,y)
                 if num == "1st  12" then
                     return tonumber(selected) <= 12
                 end
-                if num == "1st  12" then
-                    return tonumber(selected) <= 24
+                if num == "2nd  12" then
+                    return tonumber(selected) <= 24 and tonumber(selected) > 12
                 end
-                if num == "1st  12" then
-                    return tonumber(selected) <= 36
+                if num == "3rd  12" then
+                    return tonumber(selected) <= 36 and tonumber(selected) > 24
                 end
             end,
             odds = 3,
