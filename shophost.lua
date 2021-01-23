@@ -46,7 +46,7 @@ function Shop:redeem()
     if t == nil then return "No items available" end
     if t[1].count < 1 then return "No items available" end
     if self:bankWithdraw(getPrice(self.cash_out)) then return "Insufficient Funds" end
-    refinedstorage.extractItem({name=self.cash_out})
+    refinedstorage.extractItem({name=self.cash_out},1,"west")
     turtle.drop()
     return "Deposit Successful"
 end
