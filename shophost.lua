@@ -100,6 +100,7 @@ function Shop:drawPrices()
         self.monitor.setCursorPos(1,2+i)
        name,item = sanitize(getRecord(x))
        price = getPrice(item)
+       print(name,item,price)
        self.monitor.blit(twoColumns(18,name,price),pad(colors.toBlit(colors.orange),18),pad(colors.toBlit(colors.black),18))
        price = sumPrice(item)
        if price > max_price then
@@ -183,21 +184,22 @@ function getRecord(item)
 end
 
 function getPrice(item,n)
-    local inv = refinedstorage.getItem({name= item})
+    local rec = table.pack(getRecord(item))
+    local inv = refinedstorage.getItems({name= rec[1]})
     if inv[1] == nil then
         return nil
     end
     if n == nil then
-        return priceFunction(inv[1].count,getRecord(item))
+        return priceFunction(inv[1].count,table.unpack(rec))
     else 
-        return priceFunction(n,getRecord(item))
+        return priceFunction(n,table.unpack(rec))
     end
 end
 
 function sumPrice(item)
-    local inv = refinedstorage.getItems({name= item})
-    local n = inv[1].count
     local record = table.pack(getRecord(item))
+    local inv = refinedstorage.getItems({name= record[1]})
+    local n = inv[1].count
     local total = 0
     for i = 1,n do
         total = total + priceFunction(i,table.unpack(record))
