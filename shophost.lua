@@ -112,7 +112,7 @@ end
 
 function Shop:drawCashOut()
     self.monitor.setCursorPos(1,14)
-    self.monitor.blit(pad(" ",18),pad(colors.toBlit(colors.white),18),pad(colors.toBlit(colors.purple),18))
+    self.monitor.blit(pad(" ",18),pad(colors.toBlit(colors.white),18),pad(colors.toBlit(colors.red),18))
     self.monitor.setCursorPos(1,15)
     self.monitor.blit(centerText("REDEEM",18),pad(colors.toBlit(colors.orange),18),pad(colors.toBlit(colors.red),18))
     self.monitor.setCursorPos(1,16)
