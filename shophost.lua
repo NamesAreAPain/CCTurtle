@@ -29,7 +29,7 @@ function Shop:inputLoop()
     while true do
         event = {os.pullEvent()}
         if event[1] == "monitor_touch" then
-            if event[2] == self.price_monitor_name and y <= 17 then
+            if event[2] == self.price_monitor_name and tonumber(event[4]) <= 17 then
                 self:redeem()
             end
         elseif event[1] == "disk" then
