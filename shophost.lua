@@ -29,7 +29,7 @@ function Shop:inputLoop()
     while true do
         event = {os.pullEvent()}
         if event[1] == "monitor_touch" then
-            if event[2] == self.price_monitor_name and tonumber(event[4]) <= 17 then
+            if event[2] == self.price_monitor_name and tonumber(event[4]) >= 17 then
                 self:redeem()
             end
         elseif event[1] == "disk" then
@@ -42,7 +42,7 @@ function Shop:inputLoop()
 end
 
 function Shop:redeem()
-    local t = refinedstorage.getItems(self.cash_out)
+    local t = refinedstorage.getItems({name=self.cash_out})
     if t == nil then return "No items available" end
     if t[1].count < 1 then return "No items available" end
     if self:bankWithdraw(getPrice(self.cash_out)) then return "Insufficient Funds" end
