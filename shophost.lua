@@ -52,7 +52,6 @@ function Shop:redeem()
 end
 
 function Shop:deposit()
-    turtle.turnRight()
     local any_items = true
     local t = nil
     while any_items do
@@ -68,11 +67,10 @@ function Shop:deposit()
                     self:drawBalScreen()
                 end
                 turtle.select(i)
-                turtle.drop()
+                turtle.dropDown()
             end
         end
     end
-    turtle.turnLeft()
     turtle.select(1)
 end
 
