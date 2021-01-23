@@ -151,6 +151,7 @@ function doublesToButtons(buttons,num,color,x,y)
                 if num == "19to 36" then
                     return tonumber(selected) <= 36 and tonumber(selected) > 18
                 end
+                return false
             end,
             odds = 2,
             name = num
@@ -206,7 +207,7 @@ function squaresToButtons(buttons,x,y,num,oddity,color)
                     else 
                         rstation.bets[edge_name] = amount
                     end
-                    drawChip(rstation.monitor,rstation.bets[num],x+3,y)
+                    drawChip(rstation.monitor,rstation.bets[edge_name],x+3,y)
                     return true
                 end,
                 match = function(selected)
@@ -234,7 +235,7 @@ function squaresToButtons(buttons,x,y,num,oddity,color)
                     else 
                         rstation.bets[edge_name] = amount
                     end
-                    drawChip(rstation.monitor,rstation.bets[num],x+6,y+2)
+                    drawChip(rstation.monitor,rstation.bets[edge_name],x+6,y+2)
                     return true
                 end,
                 match = function(selected)
