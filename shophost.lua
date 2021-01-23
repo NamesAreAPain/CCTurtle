@@ -68,6 +68,7 @@ function Shop:deposit()
                 end
                 turtle.select(i)
                 turtle.dropDown(1)
+                t = turtle.getItemDetail(i)
             end
         end
     end
