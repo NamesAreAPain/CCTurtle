@@ -67,7 +67,7 @@ function Shop:deposit()
                     self:drawBalScreen()
                 end
                 turtle.select(i)
-                turtle.dropDown()
+                turtle.dropDown(1)
             end
         end
     end
