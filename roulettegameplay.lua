@@ -159,7 +159,9 @@ function doublesToButtons(buttons,num,color,x,y)
 end
 
 function squaresToButtons(buttons,x,y,num,oddity,color)
-    local edge_name = ""
+    local right_edge_name = ""
+    local top_edge_name = ""
+    local corner_name = ""
     buttons[num] = {
             identify = function(xp,yp)
                 return xp >= x+1 and xp <= x+5 and yp >= y+1 and yp <= y+3
@@ -187,11 +189,11 @@ function squaresToButtons(buttons,x,y,num,oddity,color)
         }
     if num == "0" or tonumber(num)%3 ~= 0 then
         if num == "0" then
-            edge_name = "0-00"
+            top_edge_name = "0-00"
         else 
-            edge_name = num.."-"..(tonumber(num)+1)
+            top_edge_name = num.."-"..(tonumber(num)+1)
         end
-        buttons[edge_name] = {
+        buttons[top_edge_name] = {
                 identify = function(xp,yp)
                     return xp >= x+2 and xp <= x+4 and yp == y
                 end,
@@ -202,24 +204,24 @@ function squaresToButtons(buttons,x,y,num,oddity,color)
                     if rstation:wager(amount) then
                         return false
                     end
-                    if rstation.bets[edge_name] ~= nil then
-                        rstation.bets[edge_name] = amount + rstation.bets[edge_name]
+                    if rstation.bets[top_edge_name] ~= nil then
+                        rstation.bets[top_edge_name] = amount + rstation.bets[top_edge_name]
                     else 
-                        rstation.bets[edge_name] = amount
+                        rstation.bets[top_edge_name] = amount
                     end
-                    drawChip(rstation.monitor,rstation.bets[edge_name],x+3,y)
+                    drawChip(rstation.monitor,rstation.bets[top_edge_name],x+3,y)
                     return true
                 end,
                 match = function(selected)
                     return num == selected or selected == ""..(tonumber(num)+1)
                 end,
                 odds = 18,
-                name = edge_name
+                name = top_edge_name
             }
     end
     if num ~= "0" and num ~= "00" and tonumber(num) <= 33 then
-        edge_name = num.."-"..(tonumber(num)+3)
-        buttons[edge_name] = {
+        right_edge_name = num.."-"..(tonumber(num)+3)
+        buttons[right_edge_name] = {
                 identify = function(xp,yp)
                     return xp == x+6 and yp == y+2 
                 end,
@@ -230,24 +232,24 @@ function squaresToButtons(buttons,x,y,num,oddity,color)
                     if rstation:wager(amount) then
                         return false
                     end
-                    if rstation.bets[edge_name] ~= nil then
-                        rstation.bets[edge_name] = amount + rstation.bets[edge_name]
+                    if rstation.bets[right_edge_name] ~= nil then
+                        rstation.bets[right_edge_name] = amount + rstation.bets[right_edge_name]
                     else 
-                        rstation.bets[edge_name] = amount
+                        rstation.bets[right_edge_name] = amount
                     end
-                    drawChip(rstation.monitor,rstation.bets[edge_name],x+6,y+2)
+                    drawChip(rstation.monitor,rstation.bets[right_edge_name],x+6,y+2)
                     return true
                 end,
                 match = function(selected)
                     return num == selected or selected == ""..(tonumber(num)+3)
                 end,
                 odds = 18,
-                name = edge_name
+                name = right_edge_name
             }
     end
     if num ~= "0" and num ~= "00" and tonumber(num)%3 ~= 0 and tonumber(num) <= 33 then
-        edge_name = num.."-"..(tonumber(num)+1).."-"..(tonumber(num)+3).."-"..(tonumber(num+4))
-        buttons[edge_name] = {
+        corner_name = num.."-"..(tonumber(num)+1).."-"..(tonumber(num)+3).."-"..(tonumber(num+4))
+        buttons[corner_name] = {
                 identify = function(xp,yp)
                     return xp == x+6 and yp == y 
                 end,
@@ -261,19 +263,19 @@ function squaresToButtons(buttons,x,y,num,oddity,color)
                         return false
                     end
                     print("placing bet")
-                    if rstation.bets[edge_name] ~= nil then
-                        rstation.bets[edge_name] = amount + rstation.bets[edge_name]
+                    if rstation.bets[corner_name] ~= nil then
+                        rstation.bets[corner_name] = amount + rstation.bets[corner_name]
                     else 
-                        rstation.bets[edge_name] = amount
+                        rstation.bets[corner_name] = amount
                     end
-                    drawChip(rstation.monitor,rstation.bets[num],x+6,y)
+                    drawChip(rstation.monitor,rstation.bets[corner_name],x+6,y)
                     return true
                 end,
                 match = function(selected)
                     return num == selected or selected == ""..(tonumber(num)+1) or selected == ""..(tonumber(num)+3) or selected == ""..(tonumber(num)+4)
                 end,
                 odds = 9,
-                name = edge_name
+                name = corner_name
             }
     end
 end
