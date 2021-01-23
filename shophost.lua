@@ -149,7 +149,7 @@ function Shop:getBal()
     end
 end
 function Shop:bankWithdraw(amount)
-    rednet.send(self.bank,"withdraw"..self.drive.getDiskID()..amount)
+    rednet.send(self.bank,"withdraw-"..self.drive.getDiskID().."-"..amount)
     local x,y = rednet.recieve()
     if y == "ERROR" then
         return true
@@ -157,7 +157,7 @@ function Shop:bankWithdraw(amount)
     return false
 end
 function Shop:bankDeposit(amount)
-    rednet.send(self.bank,"deposit"..self.drive.getDiskID()..amount)
+    rednet.send(self.bank,"deposit-"..self.drive.getDiskID().."-"..amount)
     local x,y = rednet.recieve()
     return false
 end
